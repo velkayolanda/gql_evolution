@@ -43,7 +43,7 @@ Pozn.: k účasti na každém projektovém dni patří **commit na GitHubu ne st
 
 ### Certificates (více záznamů na osobu)
 - `personality_id` - osoba které se záznam týká
-- `type` - typ certifikátu -> odkaz na certificate types (gql personalities)
+- `type` - typ certifikátu -> odkaz na certificate types (gql_personalities -> delal to babis2 takze tak (najdi si https://github.com/matejtresnak/gql_personalities))
 - `received` - dosažení (datum nebo rok)
 - `expiration` - konec certifikátu (datum nebo rok)
 - `description` - doplňujúce informácie
