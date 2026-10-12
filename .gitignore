@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 /history
+/.idea
 /.pnp
 .pnp.js
 
