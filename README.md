@@ -100,3 +100,24 @@ Vytvořena databázová vrstva pro doménu `PersonalData` podle vzoru `Domain_Ev
 **Problémy / poznámky:**
 - `birth_number` je citlivý údaj – zatím chráněn pouze `OnlyForAuthentized`, autorizace přes role se doplní ve 2. nebo 3. PD
 - Education a Certificate modely jsou záměrně vynechány – to je část jiného člena týmu
+
+---
+
+## Deníček – Education část
+
+### 2026-10-12 – DB + Service + GQL vrstva Education
+
+Vytvořena kompletní vrstva pro doménu `Education` podle stejného vzoru jako `PersonalData`.
+
+**Co bylo přidáno:**
+- `src/DBDefinitions/Domain_Education/EducationModel.py` – SQLAlchemy 2.x model, tabulka `education`, bez `UniqueConstraint` (více záznamů na osobu); `personality_id` jako soft FK na PersonalData
+- `src/DBDefinitions/__init__.py` – doplněn import a export `EducationModel`
+- `src/Dataloaders/__init__.py` – doplněn `EducationModel` loader do `LoaderMap`
+- `src/ServiceDefinitions/Domain_Education/EducationService.py` – CRUD service přes `BaseService`
+- `src/ServiceDefinitions/ServiceContext.py` – doplněna property `EducationService` do `ServiceRegistry`
+- `src/GraphTypeDefinitions/Domain_Education/EducationGQLModel.py` – GQL typ s query (`education_by_id`, `education_page`) a mutacemi (insert / update / delete), chybové kódy jako UUID
+- `src/GraphTypeDefinitions/query.py` a `mutation.py` – Education doména zapojena do root Query / Mutation
+
+**Problémy / poznámky:**
+- `started` a `finished` jsou uloženy jako `datetime.date`; pokud zadání vyžaduje jen rok, lze použít datum 1. 1. daného roku
+- `personality_id` je soft FK – nevynucuje referenční integritu na DB úrovni, stejně jako `user_id` v PersonalData

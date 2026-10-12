@@ -7,6 +7,7 @@ if typing.TYPE_CHECKING:
     from src.ServiceDefinitions.Domain_Events.EventService import EventService as _EventService
     from src.ServiceDefinitions.Domain_Events.EventInvitationService import EventInvitationService as _EventInvitationService
     from src.ServiceDefinitions.Domain_PersonalData.PersonalDataService import PersonalDataService as _PersonalDataService
+    from src.ServiceDefinitions.Domain_Education.EducationService import EducationService as _EducationService
 
 
 @dataclasses.dataclass(frozen=True)
@@ -26,6 +27,10 @@ class ServiceRegistry:
         from src.ServiceDefinitions.Domain_PersonalData.PersonalDataService import PersonalDataService
         return PersonalDataService
 
+    @property
+    def EducationService(self) -> type['_EducationService']:
+        from src.ServiceDefinitions.Domain_Education.EducationService import EducationService
+        return EducationService
 
 
 SERVICES = ServiceRegistry()
