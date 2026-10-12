@@ -1,0 +1,230 @@
+version: "3.8"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# POZOR: `docker-compose down` data NEODSTRANI (volumes jsou pojmenovane).
+#        Data smaze pouze `docker-compose down -v` – to nepouzivej pokud
+#        nechces ztratit obsah databazi a pgadmin nastaveni.
+# ─────────────────────────────────────────────────────────────────────────────
+
+x-services-volume:
+  &system-data-volume
+  type: bind
+  source: ./_uois/systemdata.hk2026.json
+  target: /app/systemdata.json
+
+x-common-gql: &common-gql
+  environment:
+    - POSTGRES_HOST=postgres_gql:5432
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=example
+    - POSTGRES_DB=data
+    - GQLUG_ENDPOINT_URL=http://gql_ug:8000/gql
+    - JWTPUBLICKEYURL=http://frontend:8000/oauth/publickey
+    - JWTRESOLVEUSERPATHURL=http://frontend:8000/oauth/userinfo
+    - DEMO=False
+    - DEMODATA=True
+  depends_on:
+    postgres_gql:
+      condition: service_healthy
+  restart: on-failure:3
+
+services:
+
+  # ── Frontend ──────────────────────────────────────────────────────────────
+  frontend:
+    image: hrbolek/frontend:0.11.0
+    environment:
+      - DEMO=True
+      - DEMODATA=True
+      - POSTGRES_HOST=postgres_credentials:5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=example
+      - POSTGRES_DB=data
+      - GQL_PROXY=http://apollo:3000/api/gql/
+      - SALT=fe1c71b2-74c0-41e5-978f-eecbffac7418
+      - ADMIN_DEFAULT_EMAIL=john.newbie@world.com
+      - ADMIN_DEFAULT_PASSWORD=john.newbie@world.com
+    ports:
+      - 33001:8000
+    volumes:
+      - <<: *system-data-volume
+    depends_on:
+      - postgres_credentials
+    restart: on-failure:3
+    healthcheck:
+      test: "curl -f -X GET http://localhost:8000/ || exit 1"
+      interval: 60s
+      retries: 3
+      start_period: 60s
+      timeout: 10s
+
+  # ── Apollo federation ─────────────────────────────────────────────────────
+  apollo:
+    image: hrbolek/apollo_federation
+    environment:
+      - PORT=3000
+      - |
+        SERVICES=
+        [
+          {"name": "ug",            "url": "http://gql_ug:8000/gql"},
+          {"name": "office",        "url": "http://gql_office:8000/gql"},
+          {"name": "granting",      "url": "http://gql_granting:8000/gql"},
+          {"name": "projects",      "url": "http://gql_projects:8000/gql"},
+          {"name": "personalities", "url": "http://gql_personalities:8000/gql"}
+        ]
+    ports:
+      - 33002:3000
+    depends_on:
+      - gql_ug
+      - gql_office
+      - gql_granting
+      - gql_projects
+      - gql_personalities
+    restart: on-failure:3
+    healthcheck:
+      interval: 60s
+      retries: 3
+      start_period: 60s
+      timeout: 10s
+
+  # ── GQL služby (hotové image) ─────────────────────────────────────────────
+  gql_ug:
+    <<: *common-gql
+    image: hrbolek/gql_ug:0.11.0
+    ports:
+      - 33003:8000
+    volumes:
+      - <<: *system-data-volume
+    healthcheck:
+      test: "curl -f -H 'Content-Type: application/json' -X POST -d '{\"query\":\"query{__schema{types{name}}}\"}' http://localhost:8000/gql || exit 1"
+      interval: 60s
+      retries: 3
+      start_period: 60s
+      timeout: 10s
+
+  gql_office:
+    <<: *common-gql
+    image: hrbolek/gql_office:0.11.0
+    ports:
+      - 33004:8000
+    volumes:
+      - <<: *system-data-volume
+    healthcheck:
+      test: "curl -f -H 'Content-Type: application/json' -X POST -d '{\"query\":\"query{__schema{types{name}}}\"}' http://localhost:8000/gql || exit 1"
+      interval: 60s
+      retries: 3
+      start_period: 60s
+      timeout: 10s
+
+  gql_granting:
+    <<: *common-gql
+    image: hrbolek/gql_granting:0.11.0
+    ports:
+      - 33005:8000
+    volumes:
+      - <<: *system-data-volume
+    healthcheck:
+      test: "curl -f -H 'Content-Type: application/json' -X POST -d '{\"query\":\"query{__schema{types{name}}}\"}' http://localhost:8000/gql || exit 1"
+      interval: 60s
+      retries: 3
+      start_period: 60s
+      timeout: 10s
+
+  gql_projects:
+    <<: *common-gql
+    image: hrbolek/gql_projects:0.11.0
+    ports:
+      - 33006:8000
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - <<: *system-data-volume
+    healthcheck:
+      test: "curl -f -H 'Content-Type: application/json' -X POST -d '{\"query\":\"query{__schema{types{name}}}\"}' http://localhost:8000/gql || exit 1"
+      interval: 60s
+      retries: 3
+      start_period: 60s
+      timeout: 10s
+
+  # ── PersonalData – tvůj servis ────────────────────────────────────────────
+  gql_personalities:
+    <<: *common-gql
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 33008:8000
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    healthcheck:
+      test: "curl -f -H 'Content-Type: application/json' -X POST -d '{\"query\":\"query{__schema{types{name}}}\"}' http://localhost:8000/gql || exit 1"
+      interval: 60s
+      retries: 3
+      start_period: 60s
+      timeout: 10s
+
+  # ── Databáze ──────────────────────────────────────────────────────────────
+  postgres_gql:
+    image: postgres:16
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=example
+      - POSTGRES_DB=data
+    volumes:
+      - postgres_gql_data:/var/lib/postgresql/data   # data přežijí down
+    ports:
+      - 5432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: on-failure:3
+
+  postgres_credentials:
+    image: postgres:16
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=example
+      - POSTGRES_DB=data
+    volumes:
+      - postgres_credentials_data:/var/lib/postgresql/data   # data přežijí down
+    ports:
+      - 5433:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: on-failure:3
+
+  # ── pgAdmin ───────────────────────────────────────────────────────────────
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=anyone@anywhere.com
+      - PGADMIN_DEFAULT_PASSWORD=example
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin                        # nastavení přežije down
+      - ./pgadmin-servers.json:/pgadmin4/servers.json:ro     # servery přednastaveny
+    ports:
+      - 31122:80
+    healthcheck:
+      test: ["CMD", "wget", "-O", "-", "http://localhost:80/misc/ping"]
+      interval: 60s
+      timeout: 10s
+      retries: 5
+    restart: on-failure:3
+
+  # ── Valkey (cache) ────────────────────────────────────────────────────────
+  valkey:
+    image: valkey/valkey:9.0.3-alpine
+    ports:
+      - 31123:6379
+    restart: always
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Pojmenované volumes – data se smažou POUZE při `docker-compose down -v`
+# ─────────────────────────────────────────────────────────────────────────────
+volumes:
+  postgres_gql_data:
+  postgres_credentials_data:
+  pgadmin_data:

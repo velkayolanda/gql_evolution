@@ -6,6 +6,7 @@ from src.Dataloaders import LoaderMap
 if typing.TYPE_CHECKING:
     from src.ServiceDefinitions.Domain_Events.EventService import EventService as _EventService
     from src.ServiceDefinitions.Domain_Events.EventInvitationService import EventInvitationService as _EventInvitationService
+    from src.ServiceDefinitions.Domain_PersonalData.PersonalDataService import PersonalDataService as _PersonalDataService
 
 
 @dataclasses.dataclass(frozen=True)
@@ -19,6 +20,12 @@ class ServiceRegistry:
     def EventInvitationService(self) -> type['_EventInvitationService']:
         from src.ServiceDefinitions.Domain_Events.EventInvitationService import EventInvitationService
         return EventInvitationService
+
+    @property
+    def PersonalDataService(self) -> type['_PersonalDataService']:
+        from src.ServiceDefinitions.Domain_PersonalData.PersonalDataService import PersonalDataService
+        return PersonalDataService
+
 
 
 SERVICES = ServiceRegistry()

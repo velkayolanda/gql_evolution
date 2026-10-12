@@ -81,3 +81,22 @@ GraphTypeDefinitions/
 ```bash
 python .CoderDefinitions/main.py
 ```
+
+---
+
+## Deníček – PersonalData část
+
+### 2026-10-09 – DB vrstva PersonalData
+
+Vytvořena databázová vrstva pro doménu `PersonalData` podle vzoru `Domain_Events`.
+
+**Co bylo přidáno:**
+- `src/DBDefinitions/Domain_PersonalData/PersonalDataModel.py` – SQLAlchemy 2.x model, tabulka `personaldata`, `UniqueConstraint` na `user_id` (max 1 záznam na uživatele), `user_id` jako soft federation FK (User žije v jiné službě)
+- `src/Dataloaders/__init__.py` – doplněn `PersonalDataModel` loader do `LoaderMap`
+- `src/ServiceDefinitions/Domain_PersonalData/PersonalDataService.py` – CRUD service přes `BaseService`
+- `src/GraphTypeDefinitions/Domain_PersonalData/PersonalDataGQLModel.py` – GQL typ s query (`personal_data_by_id`, `personal_data_page`) a mutacemi (insert / update / delete), chybové kódy jako UUID
+- `src/GraphTypeDefinitions/query.py` a `mutation.py` – PersonalData doména zapojena do root Query / Mutation
+
+**Problémy / poznámky:**
+- `birth_number` je citlivý údaj – zatím chráněn pouze `OnlyForAuthentized`, autorizace přes role se doplní ve 2. nebo 3. PD
+- Education a Certificate modely jsou záměrně vynechány – to je část jiného člena týmu

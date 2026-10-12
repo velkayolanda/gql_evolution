@@ -8,12 +8,12 @@ Skupina: ŠR 2026/27 ZS 23-5KB, zadání od Štefka (přeposlal Koláček).
 ## 1. Deadliny
 
 | Datum | Co odevzdat / udělat | Hotovo |
-|---|---|---|
-| **9. 10. 2026** | Vybrané téma, fork nebo příprava, **repository na GitHubu** | [ ] |
-| **23. 10. 2026** | **1. PD: databázová vrstva** (DB modely, SQLAlchemy 2.x) | [ ] |
-| **17. 11. 2026** | **2. PD: vrstva služeb** (Services + Loadery) | [ ] |
-| **15. 1. 2027** | **Agentní den**, společná prezentace za celou skupinu | [ ] |
-| **25. 1. / 26. 1. 2027** | **3. PD: vrstva GQL** (typy, resolvery, mutace) | [ ] |
+|---|---|------|
+| **9. 10. 2026** | Vybrané téma, fork nebo příprava, **repository na GitHubu** | [✓]  |
+| **23. 10. 2026** | **1. PD: databázová vrstva** (DB modely, SQLAlchemy 2.x) | [ ]  |
+| **17. 11. 2026** | **2. PD: vrstva služeb** (Services + Loadery) | [ ]  |
+| **15. 1. 2027** | **Agentní den**, společná prezentace za celou skupinu | [ ]  |
+| **25. 1. / 26. 1. 2027** | **3. PD: vrstva GQL** (typy, resolvery, mutace) | [ ]  |
 
 Pozn.: k účasti na každém projektovém dni patří **commit na GitHubu ne starší než 1 týden** (5 b za den, celkem 15 b). Omluvenou neúčast lze individuálně nahradit.
 
@@ -40,6 +40,12 @@ Pozn.: k účasti na každém projektovém dni patří **commit na GitHubu ne st
 - `finished` – konec (datum nebo rok)
 - `graduated` – úspěšně dokončeno (ano/ne)
 - `description` – doplňující informace
+
+### Certificates (více záznamů na osobu)
+- `personality_id` - osoba které se záznam týká
+- `type` - typ certifikátu
+- `received` - ddosažení (datum nebo rok)
+- `description` - doplňujúce informácie
 
 Vztahy: `User → Personality → Education`
 
@@ -120,8 +126,8 @@ Vztahy: `User → Personality → Education`
 **Do 9. 10.**
 - [X] Potvrdit téma (pávkovi do tabulky)
 - [x] Vytvořit fork / repository, přidat všechny členy
-- [ ] Rozdělit práci (PersonalData vs. Education + číselníky)
-- [ ] Projít vzorový gql_evolution (větev 2026)
+- [ ] Rozdělit práci (PersonalData vs. Education + číselníky) pridane téma certifikáty
+- [x] Projít vzorový gql_evolution (větev 2026)
 
 **Do 23. 10. (DB vrstva)**
 - [ ] DB modely PersonalData, Education, číselníky (stromy)
