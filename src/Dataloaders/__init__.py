@@ -4,7 +4,7 @@ from uoishelpers.dataloaders.IDLoader import IDLoader
 import src.DBDefinitions
 from src.DBDefinitions import BaseDBModel, EventModel, EventInvitationModel
 from src.DBDefinitions import PersonalDataModel, EducationModel
-
+from src.DBDefinitions import CertificateModel
 
 class LoaderMap(LoaderMapBase[BaseDBModel]):
     BaseModel = BaseDBModel
@@ -13,6 +13,7 @@ class LoaderMap(LoaderMapBase[BaseDBModel]):
     EventInvitationModel: IDLoader[src.DBDefinitions.EventInvitationModel] = None
     PersonalDataModel: IDLoader[src.DBDefinitions.PersonalDataModel] = None
     EducationModel: IDLoader[src.DBDefinitions.EducationModel] = None
+    CertificateModel: IDLoader[src.DBDefinitions.CertificateModel] = None
 
     def __init__(self, session):
         super().__init__(session)
@@ -20,6 +21,7 @@ class LoaderMap(LoaderMapBase[BaseDBModel]):
         self.EventInvitationModel = self.get(EventInvitationModel)
         self.PersonalDataModel = self.get(PersonalDataModel)
         self.EducationModel = self.get(EducationModel)
+        self.CertificateModel = self.get(CertificateModel)
 
     def get_by_name(self, name: str):
         return getattr(self, name)

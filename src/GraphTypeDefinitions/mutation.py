@@ -5,5 +5,5 @@ from src.GraphTypeDefinitions.Domain_Education import Mutation_Domain_Education
 
 
 @strawberry.type(description='Root mutation')
-class Mutation(Mutation_Domain_Events, Mutation_Domain_PersonalData, Mutation_Domain_Education):
+class Mutation(Mutation_Domain_Events, Mutation_Domain_PersonalData, Mutation_Domain_Education, Mutation_Domain_Certificates):
     pass

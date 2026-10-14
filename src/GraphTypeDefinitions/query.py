@@ -5,5 +5,5 @@ from src.GraphTypeDefinitions.Domain_Education import Query_Domain_Education
 
 
 @strawberry.type(description='Root query')
-class Query(Query_Domain_Events, Query_Domain_PersonalData, Query_Domain_Education):
+class Query(Query_Domain_Events, Query_Domain_PersonalData, Query_Domain_Education, Query_Domain_Certificates):
     pass
