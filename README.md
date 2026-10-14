@@ -121,3 +121,69 @@ Vytvořena kompletní vrstva pro doménu `Education` podle stejného vzoru jako 
 **Problémy / poznámky:**
 - `started` a `finished` jsou uloženy jako `datetime.date`; pokud zadání vyžaduje jen rok, lze použít datum 1. 1. daného roku
 - `personality_id` je soft FK – nevynucuje referenční integritu na DB úrovni, stejně jako `user_id` v PersonalData
+
+---
+
+## Deníček – Certificates část
+
+### 2026-10-14 – DB + Service + GQL vrstva Certificates (commit e7d9e0b)
+
+Vytvořena kompletní vrstva pro doménu `Certificates` podle stejného vzoru jako `PersonalData` a `Education`.
+
+**Co bylo přidáno:**
+- `src/DBDefinitions/Domain_Certificates/CertificateModel.py` – SQLAlchemy 2.x model, tabulka `certificates`; obsahuje `personality_id` s FK na `personaldata.id` (nullable=False), dále `title`, `issuer`, `certificate_number`, `issued`, `valid_to`, `level`, `description` a `certificate_type_id` (soft link na číselník v cizí službě gql_personalities)
+- `src/DBDefinitions/__init__.py` – doplněn import a export `CertificateModel`
+- `src/Dataloaders/__init__.py` – doplněn `CertificateModel` loader do `LoaderMap`
+- `src/ServiceDefinitions/Domain_Certificates/CertificateService.py` – CRUD service přes `BaseService`
+- `src/ServiceDefinitions/ServiceContext.py` – doplněna property `CertificateService` do `ServiceRegistry`
+- `src/GraphTypeDefinitions/Domain_Certificates/CertificateGQLModel.py` – GQL typ s query (`certificate_by_id`, `certificate_page`), filtrem (`CertificateInputFilter`) a mutacemi insert / update / delete; chybové kódy jako UUID
+- `src/GraphTypeDefinitions/query.py` a `mutation.py` – Certificates doména zapojena do root Query / Mutation
+
+**Problémy / poznámky:**
+- `certificate_type_id` je uloženo jako `String`, ne UUID – záměrně, protože číselník typů certifikátů žije v externí službě (`gql_personalities`), takže FK constraint na DB úrovni nedává smysl
+- `personality_id` je `nullable=False` na DB úrovni; GQL input ho má jako `Optional` – při vytvoření bez `personality_id` dojde k NOT NULL chybě z PostgreSQL
+
+---
+
+### 2026-10-14 – EducationTypeModel (číselník stromového typu)
+
+Přidán číselník pro typy vzdělání jako strom (self-referenční `parent_id`), podle vzoru `EventTypeModel`.
+
+**Co je číselník a proč strom?**
+Zadání vyžaduje číselníky implementovat jako „typy typů". Každý uzel v tabulce `educationtypes` může mít `parent_id` ukazující na jiný uzel ve stejné tabulce – tím vzniká hierarchie. Kořenové kategorie (např. „VŠ vzdělání") mají `parent_id = NULL`, jejich podtypy (Bakalářské, Magisterské, Doktorské) ukazují na ně přes `parent_id`. `EducationModel.type_id` pak FK odkazuje na konkrétní uzel v tomto stromě.
+
+```
+VŠ vzdělání  (parent_id = NULL)
+ ├── Bakalářské  (parent_id → VŠ vzdělání)
+ ├── Magisterské (parent_id → VŠ vzdělání)
+ └── Doktorské   (parent_id → VŠ vzdělání)
+
+SŠ vzdělání  (parent_id = NULL)
+ ├── Maturitní    (parent_id → SŠ vzdělání)
+ └── Učební obor  (parent_id → SŠ vzdělání)
+```
+
+**Co bylo přidáno:**
+- `src/DBDefinitions/Domain_Education/EducationTypeModel.py` – SQLAlchemy 2.x model, tabulka `educationtypes`, `parent_id` self-FK, vztahy `parent` / `children` / `educations`
+- `src/DBDefinitions/Domain_Education/EducationModel.py` – přidán `type_id` FK na `educationtypes.id` a `type` relationship
+- `src/DBDefinitions/Domain_Education/__init__.py` a `src/DBDefinitions/__init__.py` – doplněn export `EducationTypeModel`
+
+---
+
+### 2026-10-14 – Opravy bugů (session commit + zapojení do schématu)
+
+Po otestování CLI (`python -m src.ServiceDefinitions.main PersonalData create ...`) se ukázaly dva problémy.
+
+**Bug 1 – data po create zmizela (platí pro všechny domény v Service CLI)**
+
+`IDLoader.insert()` z knihovny `uoishelpers` volá interně jen `session.flush()`, nikoliv `session.commit()`. V GQL vrstvě commit zajišťuje `SessionCommitExtension`, ale v testovacím CLI (`src/ServiceDefinitions/main.py`) taková extension neexistuje. Výsledek: session se zavřela bez commitu, transakce se odrolovala, vložená data zmizela. Oprava: přidán `await session.commit()` za každou operaci v `run_async`.
+
+**Bug 2 – Certificate mutace a query nefungovaly vůbec**
+
+V `src/GraphTypeDefinitions/Domain_Certificates/__init__.py` chyběly wrapper třídy `Query_Domain_Certificates` a `Mutation_Domain_Certificates` (vzor: Education, PersonalData mají tyto wrappery). Zároveň `query.py` i `mutation.py` odkazovaly na tyto třídy bez importu → `NameError` při kompilaci celého GQL schématu. Oprava: doplněny wrapper třídy v `__init__.py` a importy v `query.py` / `mutation.py`.
+
+**Soubory změněné při opravě:**
+- `src/ServiceDefinitions/main.py` – `await session.commit()` po operacích
+- `src/GraphTypeDefinitions/Domain_Certificates/__init__.py` – přidány `Query_Domain_Certificates`, `Mutation_Domain_Certificates`
+- `src/GraphTypeDefinitions/query.py` – přidán import `Query_Domain_Certificates`
+- `src/GraphTypeDefinitions/mutation.py` – přidán import `Mutation_Domain_Certificates`

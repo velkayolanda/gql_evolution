@@ -10,7 +10,7 @@ Skupina: ŠR 2026/27 ZS 23-5KB, zadání od Štefka (přeposlal Koláček).
 | Datum | Co odevzdat / udělat | Hotovo |
 |---|---|------|
 | **9. 10. 2026** | Vybrané téma, fork nebo příprava, **repository na GitHubu** | [✓]  |
-| **23. 10. 2026** | **1. PD: databázová vrstva** (DB modely, SQLAlchemy 2.x) | [ ]  |
+| **23. 10. 2026** | **1. PD: databázová vrstva** (DB modely, SQLAlchemy 2.x) | [✓]  |
 | **17. 11. 2026** | **2. PD: vrstva služeb** (Services + Loadery) | [ ]  |
 | **15. 1. 2027** | **Agentní den**, společná prezentace za celou skupinu | [ ]  |
 | **25. 1. / 26. 1. 2027** | **3. PD: vrstva GQL** (typy, resolvery, mutace) | [ ]  |
@@ -103,6 +103,43 @@ Vztahy: `User → Personality → Education`
 
 ---
 
+## 4c. EducationTypeModel – číselník (strom) pro typy vzdělání (2026-10-14)
+
+Přidán `EducationTypeModel` jako strom číselníkových hodnot pro klasifikaci záznamů o vzdělání.
+
+**Proč strom?**
+Zadání vyžaduje číselníky implementovat jako „typy typů" (stromy). Uzly mají `parent_id` – FK na sebe sama – takže lze modelovat hierarchii, např.:
+
+```
+VŠ vzdělání  (parent_id = NULL)
+ ├── Bakalářské  (parent_id → VŠ vzdělání)
+ ├── Magisterské (parent_id → VŠ vzdělání)
+ └── Doktorské   (parent_id → VŠ vzdělání)
+
+SŠ vzdělání  (parent_id = NULL)
+ ├── Maturitní    (parent_id → SŠ vzdělání)
+ └── Učební obor  (parent_id → SŠ vzdělání)
+```
+
+Kořenové uzly mají `parent_id = NULL`. `EducationModel.type_id` je FK na tento číselník – konkrétní záznam o vzdělání jednoduše ukáže na uzel v tomto stromě.
+
+**Soubory:**
+- `src/DBDefinitions/Domain_Education/EducationTypeModel.py` – nový model, tabulka `educationtypes`
+- `src/DBDefinitions/Domain_Education/EducationModel.py` – přidán `type_id` FK + `type` relationship
+
+---
+
+## 4b. Opravené bugy (2026-10-14)
+
+| Soubor | Bug | Oprava |
+|---|---|---|
+| `src/ServiceDefinitions/main.py` | `loader.insert()` volá jen `flush()`, ne `commit()` → data se po CLI create odrolují, tabulka vypadá prázdná | Přidán `await session.commit()` po každé operaci |
+| `src/GraphTypeDefinitions/Domain_Certificates/__init__.py` | Chyběly wrapper třídy `Query_Domain_Certificates` a `Mutation_Domain_Certificates` | Doplněny podle vzoru Education/PersonalData |
+| `src/GraphTypeDefinitions/query.py` | `Query_Domain_Certificates` použit bez importu → `NameError` | Přidán import z `Domain_Certificates` |
+| `src/GraphTypeDefinitions/mutation.py` | `Mutation_Domain_Certificates` použit bez importu → `NameError` | Přidán import z `Domain_Certificates` |
+
+---
+
 ## 5. Hodnocení (max. 120 b)
 
 | Položka | Body | Poznámka |
@@ -131,10 +168,10 @@ Vztahy: `User → Personality → Education`
 - [x] Projít vzorový gql_evolution (větev 2026)
 
 **Do 23. 10. (DB vrstva)**
-- [ ] DB modely PersonalData, Education, číselníky (stromy)
-- [ ] Unikátní omezení na `user_id` v PersonalData
-- [ ] Připojení databáze, `.env`, docker compose
-- [ ] Začít README deníček
+- [x] DB modely PersonalData, Education, číselníky (stromy)
+- [x] Unikátní omezení na `user_id` v PersonalData
+- [x] Připojení databáze, `.env`, docker compose
+- [x] Začít README deníček
 
 **Do 17. 11. (služby)**
 - [ ] Loadery a Services pro všechny entity

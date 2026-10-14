@@ -693,26 +693,25 @@ async def run_async(args: argparse.Namespace) -> typing.Any:
         operation = args.operation.lower()
 
         if operation in {"create", "c"}:
-            return await op_create(ctx, service_cls, payload)
+            result = await op_create(ctx, service_cls, payload)
+        elif operation in {"get", "read", "r", "single"}:
+            result = await op_get(ctx, service_cls, payload)
+        elif operation in {"list", "multi", "rmulti", "page"}:
+            result = await op_list(ctx, service_cls, payload)
+        elif operation in {"update", "u"}:
+            result = await op_update(ctx, service_cls, payload)
+        elif operation in {"delete", "d", "remove"}:
+            result = await op_delete(ctx, service_cls, payload)
+        else:
+            result = await op_call_service_method(
+                ctx=ctx,
+                service_cls=service_cls,
+                operation=args.operation,
+                payload=payload,
+            )
 
-        if operation in {"get", "read", "r", "single"}:
-            return await op_get(ctx, service_cls, payload)
-
-        if operation in {"list", "multi", "rmulti", "page"}:
-            return await op_list(ctx, service_cls, payload)
-
-        if operation in {"update", "u"}:
-            return await op_update(ctx, service_cls, payload)
-
-        if operation in {"delete", "d", "remove"}:
-            return await op_delete(ctx, service_cls, payload)
-
-        return await op_call_service_method(
-            ctx=ctx,
-            service_cls=service_cls,
-            operation=args.operation,
-            payload=payload,
-        )
+        await session.commit()
+        return result
 
 
 def create_arg_parser() -> argparse.ArgumentParser:

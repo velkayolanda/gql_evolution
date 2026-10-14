@@ -2,6 +2,7 @@ import strawberry
 from src.GraphTypeDefinitions.Domain_Events import Mutation_Domain_Events
 from src.GraphTypeDefinitions.Domain_PersonalData import Mutation_Domain_PersonalData
 from src.GraphTypeDefinitions.Domain_Education import Mutation_Domain_Education
+from src.GraphTypeDefinitions.Domain_Certificates import Mutation_Domain_Certificates
 
 
 @strawberry.type(description='Root mutation')

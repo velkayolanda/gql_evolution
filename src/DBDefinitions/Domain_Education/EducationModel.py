@@ -1,6 +1,7 @@
 import datetime
 
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from src.DBDefinitions.BaseModel import BaseDBModel, UUIDFKey, IDType
 
@@ -18,3 +19,12 @@ class EducationModel(BaseDBModel):
     finished: Mapped[datetime.date] = mapped_column(default=None, nullable=True)
     graduated: Mapped[bool] = mapped_column(default=None, nullable=True)
     description: Mapped[str] = mapped_column(default=None, nullable=True)
+
+    type_id: Mapped[IDType] = mapped_column(
+        ForeignKey("educationtypes.id"),
+        index=True,
+        nullable=True,
+        default=None,
+        comment="reference to education type tree"
+    )
+    type = relationship("EducationTypeModel", viewonly=True)

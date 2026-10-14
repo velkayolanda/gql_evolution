@@ -2,6 +2,7 @@ import strawberry
 from src.GraphTypeDefinitions.Domain_Events import Query_Domain_Events
 from src.GraphTypeDefinitions.Domain_PersonalData import Query_Domain_PersonalData
 from src.GraphTypeDefinitions.Domain_Education import Query_Domain_Education
+from src.GraphTypeDefinitions.Domain_Certificates import Query_Domain_Certificates
 
 
 @strawberry.type(description='Root query')
