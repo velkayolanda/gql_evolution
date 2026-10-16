@@ -204,7 +204,7 @@ services:
   pgadmin:
     image: dpage/pgadmin4
     environment:
-      - PGADMIN_DEFAULT_EMAIL=anyone@anywhere.com
+      - PGADMIN_DEFAULT_EMAIL=anoyne@anywhere.com
       - PGADMIN_DEFAULT_PASSWORD=example
     volumes:
       - pgadmin_data:/var/lib/pgadmin                        # nastavení přežije down
