@@ -1,3 +1,4 @@
-from .CertificateService import CertificateService
+from .CertificateTypeService import CertificateTypeService
+from .UserCertificateService import UserCertificateService
 
-__all__ = ["CertificateService"]
+__all__ = ["CertificateTypeService", "UserCertificateService"]

@@ -47,6 +47,8 @@ Pozn.: k účasti na každém projektovém dni patří **commit na GitHubu ne st
 - `received` - dosažení (datum nebo rok)
 - `expiration` - konec certifikátu (datum nebo rok)
 - `description` - doplňujúce informácie
+- `Tabulka_1` user_certificates (`user_id`, `certificate_id`, `issue_date`, `expiration_date`) - spojovací tabulka pro více certifikátů na osobu
+- `Tabulka_2` certificate_types (`certificate_id`, `name`, `description`) - číselník typů certifikátů
 
 Vztahy: `User → Personality → Education`
 

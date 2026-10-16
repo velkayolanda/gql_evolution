@@ -7,7 +7,7 @@ from .BaseModel import BaseDBModel, IDType, UUIDColumn, UUIDFKey
 from .Domain_Events import EventModel, EventInvitationModel, EventTypeModel
 from .Domain_PersonalData import PersonalDataModel
 from .Domain_Education import EducationTypeModel, EducationModel
-from .Domain_Certificates import CertificateModel
+from .Domain_Certificates import CertificateTypeModel, UserCertificateModel
 
 async def startEngine(connectionstring, makeDrop=False, makeUp=True):
     """Provede nezbytne ukony a vrati asynchronni SessionMaker"""
@@ -75,8 +75,7 @@ __all__ = [
     'EventModel', 'EventInvitationModel', 'EventTypeModel',
     'PersonalDataModel',
     'EducationTypeModel', 'EducationModel',
-    'CertificateModel',
-    'startEngine', 'ComposeConnectionString',
-    'startEngine', 'ComposeConnectionString',
+    'CertificateTypeModel', 'UserCertificateModel',
+    'startEngine', 'ComposeConnectionString'
 ]
 

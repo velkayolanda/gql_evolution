@@ -8,7 +8,8 @@ if typing.TYPE_CHECKING:
     from src.ServiceDefinitions.Domain_Events.EventInvitationService import EventInvitationService as _EventInvitationService
     from src.ServiceDefinitions.Domain_PersonalData.PersonalDataService import PersonalDataService as _PersonalDataService
     from src.ServiceDefinitions.Domain_Education.EducationService import EducationService as _EducationService
-    from src.ServiceDefinitions.Domain_Certificates.CertificateService import CertificateService as _CertificateService
+    from src.ServiceDefinitions.Domain_Certificates.CertificateTypeService import CertificateTypeService as _CertificateTypeService
+    from src.ServiceDefinitions.Domain_Certificates.UserCertificateService import UserCertificateService as _UserCertificateService
 
 @dataclasses.dataclass(frozen=True)
 class ServiceRegistry:
@@ -33,9 +34,14 @@ class ServiceRegistry:
         return EducationService
 
     @property
-    def CertificateService(self) -> type['_CertificateService']:
-        from src.ServiceDefinitions.Domain_Certificates.CertificateService import CertificateService
-        return CertificateService
+    def CertificateTypeService(self) -> type['_CertificateTypeService']:
+        from src.ServiceDefinitions.Domain_Certificates.CertificateTypeService import CertificateTypeService
+        return CertificateTypeService
+
+    @property
+    def UserCertificateService(self) -> type['_UserCertificateService']:
+        from src.ServiceDefinitions.Domain_Certificates.UserCertificateService import UserCertificateService
+        return UserCertificateService
 
 SERVICES = ServiceRegistry()
 

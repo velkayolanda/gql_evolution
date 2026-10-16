@@ -1,3 +1,4 @@
-from .CertificateModel import CertificateModel
+from .CertificateTypeModel import CertificateTypeModel
+from .UserCertificateModel import UserCertificateModel
 
-__all__ = ['CertificateModel']
+__all__ = ["CertificateTypeModel", "UserCertificateModel"]

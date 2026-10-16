@@ -134,7 +134,7 @@ Vytvořena kompletní vrstva pro doménu `Certificates` podle stejného vzoru ja
 - `src/DBDefinitions/Domain_Certificates/CertificateModel.py` – SQLAlchemy 2.x model, tabulka `certificates`; obsahuje `user_id` s FK na `personaldata.id` (nullable=False), dále `title`, `issuer`, `certificate_number`, `issued`, `valid_to`, `level`, `description` a `certificate_type_id` (soft link na číselník v cizí službě gql_personalities)
 - `src/DBDefinitions/__init__.py` – doplněn import a export `CertificateModel`
 - `src/Dataloaders/__init__.py` – doplněn `CertificateModel` loader do `LoaderMap`
-- `src/ServiceDefinitions/Domain_Certificates/CertificateService.py` – CRUD service přes `BaseService`
+- `src/ServiceDefinitions/Domain_Certificates/CertificateTypeService.py` – CRUD service přes `BaseService`
 - `src/ServiceDefinitions/ServiceContext.py` – doplněna property `CertificateService` do `ServiceRegistry`
 - `src/GraphTypeDefinitions/Domain_Certificates/CertificateGQLModel.py` – GQL typ s query (`certificate_by_id`, `certificate_page`), filtrem (`CertificateInputFilter`) a mutacemi insert / update / delete; chybové kódy jako UUID
 - `src/GraphTypeDefinitions/query.py` a `mutation.py` – Certificates doména zapojena do root Query / Mutation
