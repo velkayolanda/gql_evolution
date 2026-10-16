@@ -5,7 +5,9 @@ FROM python:${PYTHON_VERSION}-${PYTHON_VARIANT}
 WORKDIR /app
 COPY pyproject.toml README.md requirements.txt ./
 COPY src ./src
+COPY main.py ./
 RUN python -m pip install --upgrade pip \
+    && python -m pip install --no-cache-dir -r requirements.txt \
     && python -m pip install --no-cache-dir -e .
 
 RUN groupadd --system app \

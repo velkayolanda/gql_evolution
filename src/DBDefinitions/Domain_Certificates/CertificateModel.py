@@ -13,7 +13,7 @@ class CertificateModel(BaseDBModel):
 
     # --- Cizí klíče ---
     # Přidáno default=None
-    personality_id: Mapped[IDType] = mapped_column(
+    user_id: Mapped[IDType] = mapped_column(
         ForeignKey("personaldata.id"),
         index=True,
         nullable=False,

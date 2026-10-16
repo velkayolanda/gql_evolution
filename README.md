@@ -110,7 +110,7 @@ Vytvořena databázová vrstva pro doménu `PersonalData` podle vzoru `Domain_Ev
 Vytvořena kompletní vrstva pro doménu `Education` podle stejného vzoru jako `PersonalData`.
 
 **Co bylo přidáno:**
-- `src/DBDefinitions/Domain_Education/EducationModel.py` – SQLAlchemy 2.x model, tabulka `education`, bez `UniqueConstraint` (více záznamů na osobu); `personality_id` jako soft FK na PersonalData
+- `src/DBDefinitions/Domain_Education/EducationModel.py` – SQLAlchemy 2.x model, tabulka `education`, bez `UniqueConstraint` (více záznamů na osobu); `user_id` jako soft FK na PersonalData
 - `src/DBDefinitions/__init__.py` – doplněn import a export `EducationModel`
 - `src/Dataloaders/__init__.py` – doplněn `EducationModel` loader do `LoaderMap`
 - `src/ServiceDefinitions/Domain_Education/EducationService.py` – CRUD service přes `BaseService`
@@ -120,7 +120,7 @@ Vytvořena kompletní vrstva pro doménu `Education` podle stejného vzoru jako 
 
 **Problémy / poznámky:**
 - `started` a `finished` jsou uloženy jako `datetime.date`; pokud zadání vyžaduje jen rok, lze použít datum 1. 1. daného roku
-- `personality_id` je soft FK – nevynucuje referenční integritu na DB úrovni, stejně jako `user_id` v PersonalData
+- `user_id` je soft FK – nevynucuje referenční integritu na DB úrovni, stejně jako `user_id` v PersonalData
 
 ---
 
@@ -131,7 +131,7 @@ Vytvořena kompletní vrstva pro doménu `Education` podle stejného vzoru jako 
 Vytvořena kompletní vrstva pro doménu `Certificates` podle stejného vzoru jako `PersonalData` a `Education`.
 
 **Co bylo přidáno:**
-- `src/DBDefinitions/Domain_Certificates/CertificateModel.py` – SQLAlchemy 2.x model, tabulka `certificates`; obsahuje `personality_id` s FK na `personaldata.id` (nullable=False), dále `title`, `issuer`, `certificate_number`, `issued`, `valid_to`, `level`, `description` a `certificate_type_id` (soft link na číselník v cizí službě gql_personalities)
+- `src/DBDefinitions/Domain_Certificates/CertificateModel.py` – SQLAlchemy 2.x model, tabulka `certificates`; obsahuje `user_id` s FK na `personaldata.id` (nullable=False), dále `title`, `issuer`, `certificate_number`, `issued`, `valid_to`, `level`, `description` a `certificate_type_id` (soft link na číselník v cizí službě gql_personalities)
 - `src/DBDefinitions/__init__.py` – doplněn import a export `CertificateModel`
 - `src/Dataloaders/__init__.py` – doplněn `CertificateModel` loader do `LoaderMap`
 - `src/ServiceDefinitions/Domain_Certificates/CertificateService.py` – CRUD service přes `BaseService`
@@ -141,7 +141,7 @@ Vytvořena kompletní vrstva pro doménu `Certificates` podle stejného vzoru ja
 
 **Problémy / poznámky:**
 - `certificate_type_id` je uloženo jako `String`, ne UUID – záměrně, protože číselník typů certifikátů žije v externí službě (`gql_personalities`), takže FK constraint na DB úrovni nedává smysl
-- `personality_id` je `nullable=False` na DB úrovni; GQL input ho má jako `Optional` – při vytvoření bez `personality_id` dojde k NOT NULL chybě z PostgreSQL
+- `user_id` je `nullable=False` na DB úrovni; GQL input ho má jako `Optional` – při vytvoření bez `user_id` dojde k NOT NULL chybě z PostgreSQL
 
 ---
 

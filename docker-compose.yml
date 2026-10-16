@@ -154,6 +154,8 @@ services:
     ports:
       - 33008:8000
     command: uvicorn main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - <<: *system-data-volume
     healthcheck:
       test: "curl -f -H 'Content-Type: application/json' -X POST -d '{\"query\":\"query{__schema{types{name}}}\"}' http://localhost:8000/gql || exit 1"
       interval: 60s
@@ -163,13 +165,13 @@ services:
 
   # ── Databáze ──────────────────────────────────────────────────────────────
   postgres_gql:
-    image: postgres:16
+    image: postgres
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=example
       - POSTGRES_DB=data
     volumes:
-      - postgres_gql_data:/var/lib/postgresql/data   # data přežijí down
+      - postgres_gql_data:/var/lib/postgresql   # data přežijí down
     ports:
       - 5432:5432
     healthcheck:
@@ -177,16 +179,17 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 60s
     restart: on-failure:3
 
   postgres_credentials:
-    image: postgres:16
+    image: postgres
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=example
       - POSTGRES_DB=data
     volumes:
-      - postgres_credentials_data:/var/lib/postgresql/data   # data přežijí down
+      - postgres_credentials_data:/var/lib/postgresql   # data přežijí down
     ports:
       - 5433:5432
     healthcheck:
@@ -194,6 +197,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 60s
     restart: on-failure:3
 
   # ── pgAdmin ───────────────────────────────────────────────────────────────

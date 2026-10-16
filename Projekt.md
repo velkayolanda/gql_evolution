@@ -32,7 +32,7 @@ Pozn.: k účasti na každém projektovém dni patří **commit na GitHubu ne st
 - `note` – poznámka
 
 ### Education (více záznamů na osobu)
-- `personality_id` – osoba, které se záznam týká
+- `user_id` – osoba, které se záznam týká
 - `institution_name` – škola / instituce
 - `study_program` – program nebo obor
 - `degree` – titul / kvalifikace
@@ -42,7 +42,7 @@ Pozn.: k účasti na každém projektovém dni patří **commit na GitHubu ne st
 - `description` – doplňující informace
 
 ### Certificates (více záznamů na osobu)
-- `personality_id` - osoba které se záznam týká
+- `user_id` - osoba které se záznam týká
 - `type` - typ certifikátu -> odkaz na certificate types (gql_personalities -> delal to babis2 takze tak (najdi si https://github.com/matejtresnak/gql_personalities))
 - `received` - dosažení (datum nebo rok)
 - `expiration` - konec certifikátu (datum nebo rok)
@@ -51,7 +51,7 @@ Pozn.: k účasti na každém projektovém dni patří **commit na GitHubu ne st
 Vztahy: `User → Personality → Education`
 
 ### K ujasnění se zadavatelem
-- [ ] Je `personality_id` totéž co `user_id`, nebo je Personality samostatná entita? (v PersonalData je `user_id`, v Education `personality_id`)
+- [ ] Je `user_id` totéž co `user_id`, nebo je Personality samostatná entita? (v PersonalData je `user_id`, v Education `user_id`)
 - [ ] Datový typ `started` / `finished`: datum, nebo i samotný rok? (zadání říká „datum nebo rok“)
 - [ ] Zda má Education navázat na číselník (typy typů), např. typ studia nebo stupeň titulu
 
@@ -164,7 +164,7 @@ Kořenové uzly mají `parent_id = NULL`. `EducationModel.type_id` je FK na tent
 **Do 9. 10.**
 - [X] Potvrdit téma (pávkovi do tabulky)
 - [x] Vytvořit fork / repository, přidat všechny členy
-- [ ] Rozdělit práci (PersonalData vs. Education + číselníky) pridane téma certifikáty
+- [x] Rozdělit práci (PersonalData vs. Education + číselníky) pridane téma certifikáty
 - [x] Projít vzorový gql_evolution (větev 2026)
 
 **Do 23. 10. (DB vrstva)**
