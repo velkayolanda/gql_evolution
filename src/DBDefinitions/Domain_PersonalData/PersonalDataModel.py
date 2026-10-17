@@ -7,7 +7,7 @@ from src.DBDefinitions.BaseModel import BaseDBModel, UUIDFKey, IDType
 
 
 class PersonalDataModel(BaseDBModel):
-    __tablename__ = "personaldata"
+    __tablename__ = "personal_data"
     __table_args__ = (UniqueConstraint("user_id", name="uq_personaldata_user_id"),)
 
     # soft federation reference – User lives in a different service

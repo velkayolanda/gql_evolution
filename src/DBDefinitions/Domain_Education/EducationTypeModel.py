@@ -5,7 +5,7 @@ from src.DBDefinitions.BaseModel import BaseDBModel, IDType
 
 
 class EducationTypeModel(BaseDBModel):
-    __tablename__ = "educationtypes"
+    __tablename__ = "education_types"
 
     path_attribute_name = "path"
     parent_attribute_name = "parent"
@@ -27,7 +27,7 @@ class EducationTypeModel(BaseDBModel):
     name_en: Mapped[str] = mapped_column(default=None, nullable=True)
 
     parent_id: Mapped[IDType] = mapped_column(
-        ForeignKey("educationtypes.id"),
+        ForeignKey("education_types.id"),
         index=True,
         nullable=True,
         default=None,

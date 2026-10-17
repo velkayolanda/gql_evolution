@@ -1,9 +1,143 @@
 {
-    "eventtypes": [
-    ],
-    "events": [
-    ],
-    "event_invitations": [
-    ]
+    "eventtypes": [],
+    "events": [],
+    "event_invitations": [],
 
+    "education_types": [
+        {"id": "aaaa0001-0000-0000-0000-000000000000", "name": "VŠ vzdělání",   "name_en": "University education", "parent_id": null, "path": null},
+        {"id": "aaaa0002-0000-0000-0000-000000000000", "name": "Bakalářské",    "name_en": "Bachelor",             "parent_id": "aaaa0001-0000-0000-0000-000000000000", "path": null},
+        {"id": "aaaa0003-0000-0000-0000-000000000000", "name": "Magisterské",   "name_en": "Master",               "parent_id": "aaaa0001-0000-0000-0000-000000000000", "path": null},
+        {"id": "aaaa0004-0000-0000-0000-000000000000", "name": "Doktorské",     "name_en": "PhD",                  "parent_id": "aaaa0001-0000-0000-0000-000000000000", "path": null},
+        {"id": "aaaa0005-0000-0000-0000-000000000000", "name": "SŠ vzdělání",   "name_en": "High school",          "parent_id": null, "path": null},
+        {"id": "aaaa0006-0000-0000-0000-000000000000", "name": "Maturitní",     "name_en": "Matriculation",        "parent_id": "aaaa0005-0000-0000-0000-000000000000", "path": null}
+    ],
+
+    "certificate_types": [
+        {"id": "eeee0001-0000-0000-0000-000000000000", "name": "CCNA",                  "description": "Cisco Certified Network Associate",                   "validity": "3 roky"},
+        {"id": "eeee0002-0000-0000-0000-000000000000", "name": "AWS Cloud Practitioner","description": "Amazon Web Services základní certifikace",             "validity": "3 roky"},
+        {"id": "eeee0003-0000-0000-0000-000000000000", "name": "ECDL",                  "description": "European Computer Driving Licence – digitální gramotnost", "validity": "neomezeně"},
+        {"id": "eeee0004-0000-0000-0000-000000000000", "name": "Řidičský průkaz B",     "description": "Oprávnění řídit osobní automobily",                   "validity": "neomezeně"}
+    ],
+
+    "personal_data": [
+        {
+            "id":             "bbbb0001-0000-0000-0000-000000000000",
+            "user_id":        "cccc0001-0000-0000-0000-000000000000",
+            "birth_number":   "900101/1234",
+            "birth_date":     "1990-01-01",
+            "birth_place":    "Praha",
+            "citizenship":    "CZ",
+            "nationality":    "česká",
+            "personal_title": "Bc.",
+            "note":           "Jan Novák – testovací uživatel"
+        },
+        {
+            "id":             "bbbb0002-0000-0000-0000-000000000000",
+            "user_id":        "cccc0002-0000-0000-0000-000000000000",
+            "birth_number":   "955215/5678",
+            "birth_date":     "1995-02-15",
+            "birth_place":    "Brno",
+            "citizenship":    "CZ",
+            "nationality":    "česká",
+            "personal_title": "Ing.",
+            "note":           null
+        },
+        {
+            "id":             "bbbb0003-0000-0000-0000-000000000000",
+            "user_id":        "cccc0003-0000-0000-0000-000000000000",
+            "birth_number":   "881225/9012",
+            "birth_date":     "1988-12-25",
+            "birth_place":    "Ostrava",
+            "citizenship":    "CZ",
+            "nationality":    "česká",
+            "personal_title": null,
+            "note":           "Petr Kratochvíl – testovací uživatel"
+        }
+    ],
+
+    "education": [
+        {
+            "id":               "dddd0001-0000-0000-0000-000000000000",
+            "personality_id":   "bbbb0001-0000-0000-0000-000000000000",
+            "institution_name": "FIT ČVUT Praha",
+            "study_program":    "Softwarové inženýrství",
+            "degree":           "Bc.",
+            "started":          "2018-09-01",
+            "finished":         "2021-06-30",
+            "graduated":        true,
+            "description":      null,
+            "type_id":          "aaaa0002-0000-0000-0000-000000000000"
+        },
+        {
+            "id":               "dddd0002-0000-0000-0000-000000000000",
+            "personality_id":   "bbbb0001-0000-0000-0000-000000000000",
+            "institution_name": "FIT ČVUT Praha",
+            "study_program":    "Kybernetika a robotika",
+            "degree":           "Ing.",
+            "started":          "2021-09-01",
+            "finished":         "2023-06-30",
+            "graduated":        true,
+            "description":      null,
+            "type_id":          "aaaa0003-0000-0000-0000-000000000000"
+        },
+        {
+            "id":               "dddd0003-0000-0000-0000-000000000000",
+            "personality_id":   "bbbb0002-0000-0000-0000-000000000000",
+            "institution_name": "VŠE Praha",
+            "study_program":    "Podniková informatika",
+            "degree":           "Bc.",
+            "started":          "2019-09-01",
+            "finished":         "2022-06-30",
+            "graduated":        true,
+            "description":      "Specializace: datová analytika",
+            "type_id":          "aaaa0002-0000-0000-0000-000000000000"
+        },
+        {
+            "id":               "dddd0004-0000-0000-0000-000000000000",
+            "personality_id":   "bbbb0003-0000-0000-0000-000000000000",
+            "institution_name": "SPŠE Ostrava",
+            "study_program":    "Informační technologie",
+            "degree":           null,
+            "started":          "2014-09-01",
+            "finished":         "2018-06-30",
+            "graduated":        true,
+            "description":      null,
+            "type_id":          "aaaa0006-0000-0000-0000-000000000000"
+        }
+    ],
+
+    "user_certificates": [
+        {
+            "id":              "ffff0001-0000-0000-0000-000000000000",
+            "user_id":         "bbbb0001-0000-0000-0000-000000000000",
+            "certificate_id":  "eeee0001-0000-0000-0000-000000000000",
+            "issue_date":      "2022-03-15",
+            "expiration_date": "2025-03-15",
+            "is_valid":        false
+        },
+        {
+            "id":              "ffff0002-0000-0000-0000-000000000000",
+            "user_id":         "bbbb0001-0000-0000-0000-000000000000",
+            "certificate_id":  "eeee0002-0000-0000-0000-000000000000",
+            "issue_date":      "2023-07-01",
+            "expiration_date": "2026-07-01",
+            "is_valid":        true
+        },
+        {
+            "id":              "ffff0003-0000-0000-0000-000000000000",
+            "user_id":         "bbbb0002-0000-0000-0000-000000000000",
+            "certificate_id":  "eeee0003-0000-0000-0000-000000000000",
+            "issue_date":      "2021-05-20",
+            "expiration_date": null,
+            "is_valid":        true
+        },
+        {
+            "id":              "ffff0004-0000-0000-0000-000000000000",
+            "user_id":         "bbbb0003-0000-0000-0000-000000000000",
+            "certificate_id":  "eeee0004-0000-0000-0000-000000000000",
+            "issue_date":      "2010-08-10",
+            "expiration_date": null,
+            "is_valid":        true
+        }
+    ]
 }

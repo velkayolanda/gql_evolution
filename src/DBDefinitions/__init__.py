@@ -49,7 +49,7 @@ async def startEngine(connectionstring, makeDrop=False, makeUp=True):
         scopefunc=current_task,
     )
 
-    return async_sessionMaker
+    return async_sessionMaker, async_session_factory
 
 import os
 

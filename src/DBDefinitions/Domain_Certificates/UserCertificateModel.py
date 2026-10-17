@@ -13,7 +13,7 @@ class UserCertificateModel(BaseDBModel):
 
     # --- Cizí klíče ---
     user_id: Mapped[IDType] = mapped_column(
-        ForeignKey("personaldata.id"),
+        ForeignKey("personal_data.id"),
         index=True,
         nullable=False,
         default=None,

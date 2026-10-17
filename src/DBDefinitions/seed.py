@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import datetime
 import os
+import re
 import uuid
 
 from contextlib import asynccontextmanager
@@ -8,6 +10,32 @@ from contextlib import asynccontextmanager
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import inspect as sa_inspect
 from sqlalchemy.exc import NoInspectionAvailable
+
+_DATE_RE = re.compile(r'^\d{4}-\d{2}-\d{2}$')
+
+def _convert_dates(json_data: dict) -> dict:
+    """Convert bare ISO date strings (YYYY-MM-DD) to datetime.date objects.
+    asyncpg rejects plain strings for DATE columns.
+    """
+    result = {}
+    for table, rows in json_data.items():
+        if not isinstance(rows, list):
+            result[table] = rows
+            continue
+        converted = []
+        for row in rows:
+            new_row = {}
+            for k, v in row.items():
+                if isinstance(v, str) and _DATE_RE.match(v):
+                    try:
+                        new_row[k] = datetime.date.fromisoformat(v)
+                    except ValueError:
+                        new_row[k] = v
+                else:
+                    new_row[k] = v
+            converted.append(new_row)
+        result[table] = converted
+    return result
 
 from uoishelpers.dataloaders import readJsonFile
 from uoishelpers.feeders import ImportModels
@@ -39,14 +67,14 @@ def is_sqlalchemy_model(cls: type) -> bool:
     
 get_demodata = lambda :readJsonFile(jsonFileName="./systemdata.json")
 
-async def init_database_data(session: AsyncSession, get_demodata=get_demodata) -> None:
+async def init_database_data(raw_session_factory, get_demodata=get_demodata) -> None:
     """Idempotent seed hook for application startup.
 
     Keep this function small and explicit. It is called once from
     DatabaseRuntime.start(), after metadata.create_all().
     """
 
-    json_data = get_demodata()
+    json_data = _convert_dates(get_demodata())
 
     Models = [
         mapper.class_
@@ -84,10 +112,11 @@ async def init_database_data(session: AsyncSession, get_demodata=get_demodata) -
 
     @asynccontextmanager
     async def session_maker():
+        session = raw_session_factory()
         try:
             yield session
         finally:
-            pass
+            await session.close()
 
     await ImportModels(session_maker, ModelsToImport, json_data)
 

@@ -105,6 +105,20 @@ Vztahy: `User → Personality → Education`
 
 ---
 
+## 4d. Demodata + oprava FK (2026-10-16)
+
+Přidána testovací data do `systemdata.json` pro všechny nové tabulky (načítají se při `DEMODATA=True`).
+
+| Tabulka | Záznamy |
+|---|---|
+| `education_types` | 6 uzlů stromu (VŠ: Bc/Ing/PhD, SŠ: Maturitní) |
+| `certificate_types` | 4 typy (CCNA, AWS CP, ECDL, Řidičský průkaz B) |
+| `personal_data` | 3 osoby (Jan Novák, Marie Svobodová, Petr Kratochvíl) |
+| `education` | 4 záznamy (Jan 2×, Marie 1×, Petr 1×) |
+| `user_certificates` | 4 záznamy (Jan 2 cert, Marie 1, Petr 1) |
+
+---
+
 ## 4c. EducationTypeModel – číselník (strom) pro typy vzdělání (2026-10-14)
 
 Přidán `EducationTypeModel` jako strom číselníkových hodnot pro klasifikaci záznamů o vzdělání.

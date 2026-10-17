@@ -21,7 +21,7 @@ class EducationModel(BaseDBModel):
     description: Mapped[str] = mapped_column(default=None, nullable=True)
 
     type_id: Mapped[IDType] = mapped_column(
-        ForeignKey("educationtypes.id"),
+        ForeignKey("education_types.id"),
         index=True,
         nullable=True,
         default=None,

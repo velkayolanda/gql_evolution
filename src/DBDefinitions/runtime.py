@@ -31,6 +31,7 @@ class DatabaseRuntime:
         if cls._instance is None:
             cls._instance = super().__new__(cls)
             cls._instance._session_maker = None
+            cls._instance._raw_factory = None
             cls._instance._settings = None
         return cls._instance
 
@@ -50,21 +51,22 @@ class DatabaseRuntime:
 
         settings = settings or DatabaseSettings()
         connection_string = settings.connection_string or ComposeConnectionString()
-        session_maker = await startEngine(
+        result = await startEngine(
             connection_string,
             makeDrop=settings.make_drop,
             makeUp=settings.make_up,
         )
-        if session_maker is None:
+        if result is None:
             raise RuntimeError('Unable to create async session maker')
 
+        session_maker, raw_factory = result
         self._session_maker = session_maker
+        self._raw_factory = raw_factory
         self._settings = settings
 
         if settings.seed_data:
-            async with self.session() as session:
-                from src.DBDefinitions.seed import init_database_data
-                await init_database_data(session)
+            from src.DBDefinitions.seed import init_database_data
+            await init_database_data(raw_factory)
 
         return self._session_maker
 
