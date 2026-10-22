@@ -672,14 +672,16 @@ async def run_async(args: argparse.Namespace) -> typing.Any:
     service_cls = resolve_service(args.service)
     payload = parse_payload(args.payload)
 
-    session_maker = await startEngine(
+    result = await startEngine(
         ComposeConnectionString(),
         makeDrop=args.drop,
         makeUp=not args.no_makeup,
     )
 
-    if session_maker is None:
+    if result is None:
         raise CliError("Unable to create async session maker")
+
+    session_maker, _ = result
 
     async with session_maker() as session:
         loaders = LoaderMap(session)

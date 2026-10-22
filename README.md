@@ -91,10 +91,10 @@ python .CoderDefinitions/main.py
 Vytvořena databázová vrstva pro doménu `PersonalData` podle vzoru `Domain_Events`.
 
 **Co bylo přidáno:**
-- `src/DBDefinitions/Domain_PersonalData/PersonalDataModel.py` – SQLAlchemy 2.x model, tabulka `personaldata`, `UniqueConstraint` na `user_id` (max 1 záznam na uživatele), `user_id` jako soft federation FK (User žije v jiné službě)
+- `src/DBDefinitions/Domain_Personalities/PersonalData` – SQLAlchemy 2.x model, tabulka `personaldata`, `UniqueConstraint` na `user_id` (max 1 záznam na uživatele), `user_id` jako soft federation FK (User žije v jiné službě)
 - `src/Dataloaders/__init__.py` – doplněn `PersonalDataModel` loader do `LoaderMap`
 - `src/ServiceDefinitions/Domain_PersonalData/PersonalDataService.py` – CRUD service přes `BaseService`
-- `src/GraphTypeDefinitions/Domain_PersonalData/PersonalDataGQLModel.py` – GQL typ s query (`personal_data_by_id`, `personal_data_page`) a mutacemi (insert / update / delete), chybové kódy jako UUID
+- `src/GraphTypeDefinitions/Domain_Personalities/PersonalData` – GQL typ s query (`personal_data_by_id`, `personal_data_page`) a mutacemi (insert / update / delete), chybové kódy jako UUID
 - `src/GraphTypeDefinitions/query.py` a `mutation.py` – PersonalData doména zapojena do root Query / Mutation
 
 **Problémy / poznámky:**
@@ -110,12 +110,12 @@ Vytvořena databázová vrstva pro doménu `PersonalData` podle vzoru `Domain_Ev
 Vytvořena kompletní vrstva pro doménu `Education` podle stejného vzoru jako `PersonalData`.
 
 **Co bylo přidáno:**
-- `src/DBDefinitions/Domain_Education/EducationModel.py` – SQLAlchemy 2.x model, tabulka `education`, bez `UniqueConstraint` (více záznamů na osobu); `user_id` jako soft FK na PersonalData
+- `src/DBDefinitions/Domain_Personalities/Education` – SQLAlchemy 2.x model, tabulka `education`, bez `UniqueConstraint` (více záznamů na osobu); `user_id` jako soft FK na PersonalData
 - `src/DBDefinitions/__init__.py` – doplněn import a export `EducationModel`
 - `src/Dataloaders/__init__.py` – doplněn `EducationModel` loader do `LoaderMap`
 - `src/ServiceDefinitions/Domain_Education/EducationService.py` – CRUD service přes `BaseService`
 - `src/ServiceDefinitions/ServiceContext.py` – doplněna property `EducationService` do `ServiceRegistry`
-- `src/GraphTypeDefinitions/Domain_Education/EducationGQLModel.py` – GQL typ s query (`education_by_id`, `education_page`) a mutacemi (insert / update / delete), chybové kódy jako UUID
+- `src/GraphTypeDefinitions/Domain_Personalities/Education` – GQL typ s query (`education_by_id`, `education_page`) a mutacemi (insert / update / delete), chybové kódy jako UUID
 - `src/GraphTypeDefinitions/query.py` a `mutation.py` – Education doména zapojena do root Query / Mutation
 
 **Problémy / poznámky:**
@@ -131,12 +131,12 @@ Vytvořena kompletní vrstva pro doménu `Education` podle stejného vzoru jako 
 Vytvořena kompletní vrstva pro doménu `Certificates` podle stejného vzoru jako `PersonalData` a `Education`.
 
 **Co bylo přidáno:**
-- `src/DBDefinitions/Domain_Certificates/CertificateModel.py` – SQLAlchemy 2.x model, tabulka `certificates`; obsahuje `user_id` s FK na `personaldata.id` (nullable=False), dále `title`, `issuer`, `certificate_number`, `issued`, `valid_to`, `level`, `description` a `certificate_type_id` (soft link na číselník v cizí službě gql_personalities)
+- `src/DBDefinitions/Domain_Personalities/Certificates` – SQLAlchemy 2.x model, tabulka `certificates`; obsahuje `user_id` s FK na `personaldata.id` (nullable=False), dále `title`, `issuer`, `certificate_number`, `issued`, `valid_to`, `level`, `description` a `certificate_type_id` (soft link na číselník v cizí službě gql_personalities)
 - `src/DBDefinitions/__init__.py` – doplněn import a export `CertificateModel`
 - `src/Dataloaders/__init__.py` – doplněn `CertificateModel` loader do `LoaderMap`
 - `src/ServiceDefinitions/Domain_Certificates/CertificateTypeService.py` – CRUD service přes `BaseService`
 - `src/ServiceDefinitions/ServiceContext.py` – doplněna property `CertificateService` do `ServiceRegistry`
-- `src/GraphTypeDefinitions/Domain_Certificates/CertificateGQLModel.py` – GQL typ s query (`certificate_by_id`, `certificate_page`), filtrem (`CertificateInputFilter`) a mutacemi insert / update / delete; chybové kódy jako UUID
+- `src/GraphTypeDefinitions/Domain_Personalities/Certificates` – GQL typ s query (`certificate_by_id`, `certificate_page`), filtrem (`CertificateInputFilter`) a mutacemi insert / update / delete; chybové kódy jako UUID
 - `src/GraphTypeDefinitions/query.py` a `mutation.py` – Certificates doména zapojena do root Query / Mutation
 
 **Problémy / poznámky:**
@@ -164,9 +164,9 @@ SŠ vzdělání  (parent_id = NULL)
 ```
 
 **Co bylo přidáno:**
-- `src/DBDefinitions/Domain_Education/EducationTypeModel.py` – SQLAlchemy 2.x model, tabulka `educationtypes`, `parent_id` self-FK, vztahy `parent` / `children` / `educations`
-- `src/DBDefinitions/Domain_Education/EducationModel.py` – přidán `type_id` FK na `educationtypes.id` a `type` relationship
-- `src/DBDefinitions/Domain_Education/__init__.py` a `src/DBDefinitions/__init__.py` – doplněn export `EducationTypeModel`
+- `src/DBDefinitions/Domain_Personalities/Education` – SQLAlchemy 2.x model, tabulka `educationtypes`, `parent_id` self-FK, vztahy `parent` / `children` / `educations`
+- `src/DBDefinitions/Domain_Personalities/Education` – přidán `type_id` FK na `educationtypes.id` a `type` relationship
+- `src/DBDefinitions/Domain_Personalities/Education` a `src/DBDefinitions/__init__.py` – doplněn export `EducationTypeModel`
 
 ---
 
@@ -180,10 +180,10 @@ Po otestování CLI (`python -m src.ServiceDefinitions.main PersonalData create 
 
 **Bug 2 – Certificate mutace a query nefungovaly vůbec**
 
-V `src/GraphTypeDefinitions/Domain_Certificates/__init__.py` chyběly wrapper třídy `Query_Domain_Certificates` a `Mutation_Domain_Certificates` (vzor: Education, PersonalData mají tyto wrappery). Zároveň `query.py` i `mutation.py` odkazovaly na tyto třídy bez importu → `NameError` při kompilaci celého GQL schématu. Oprava: doplněny wrapper třídy v `__init__.py` a importy v `query.py` / `mutation.py`.
+V `src/GraphTypeDefinitions/Domain_Personalities/Certificates` chyběly wrapper třídy `Query_Domain_Certificates` a `Mutation_Domain_Certificates` (vzor: Education, PersonalData mají tyto wrappery). Zároveň `query.py` i `mutation.py` odkazovaly na tyto třídy bez importu → `NameError` při kompilaci celého GQL schématu. Oprava: doplněny wrapper třídy v `__init__.py` a importy v `query.py` / `mutation.py`.
 
 **Soubory změněné při opravě:**
 - `src/ServiceDefinitions/main.py` – `await session.commit()` po operacích
-- `src/GraphTypeDefinitions/Domain_Certificates/__init__.py` – přidány `Query_Domain_Certificates`, `Mutation_Domain_Certificates`
+- `src/GraphTypeDefinitions/Domain_Personalities/Certificates` – přidány `Query_Domain_Certificates`, `Mutation_Domain_Certificates`
 - `src/GraphTypeDefinitions/query.py` – přidán import `Query_Domain_Certificates`
 - `src/GraphTypeDefinitions/mutation.py` – přidán import `Mutation_Domain_Certificates`

@@ -5,9 +5,8 @@ from sqlalchemy.ext.asyncio import create_async_engine
 
 from .BaseModel import BaseDBModel, IDType, UUIDColumn, UUIDFKey
 from .Domain_Events import EventModel, EventInvitationModel, EventTypeModel
-from .Domain_PersonalData import PersonalDataModel
-from .Domain_Education import EducationTypeModel, EducationModel
-from .Domain_Certificates import CertificateTypeModel, UserCertificateModel
+from DBDefinitions.Domain_Personalities import PersonalDataModel, EducationTypeModel, EducationModel, CertificateTypeModel, UserCertificateModel
+
 
 async def startEngine(connectionstring, makeDrop=False, makeUp=True):
     """Provede nezbytne ukony a vrati asynchronni SessionMaker"""

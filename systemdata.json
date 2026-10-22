@@ -1,32 +1,42 @@
 {
-    "eventtypes": [],
-    "events": [],
-    "event_invitations": [],
-
     "education_types": [
-        {"id": "c1a2b3c4-d5e6-7f8a-9b0c-1d2e3f4a5b6c", "name": "VŠ vzdělání",              "name_en": "University education",       "parent_id": null,                                   "path": null},
-        {"id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890", "name": "Bakalářské",               "name_en": "Bachelor",                   "parent_id": "c1a2b3c4-d5e6-7f8a-9b0c-1d2e3f4a5b6c", "path": null},
-        {"id": "b2c3d4e5-f6a7-8901-bcde-f12345678901", "name": "Magisterské / Inženýrské", "name_en": "Master / Engineering",       "parent_id": "c1a2b3c4-d5e6-7f8a-9b0c-1d2e3f4a5b6c", "path": null},
-        {"id": "c3d4e5f6-a7b8-9012-cdef-123456789012", "name": "Doktorské",                "name_en": "PhD / Doctoral",             "parent_id": "c1a2b3c4-d5e6-7f8a-9b0c-1d2e3f4a5b6c", "path": null},
-        {"id": "d4e5f6a7-b8c9-0123-defa-234567890123", "name": "SŠ vzdělání",              "name_en": "Secondary school",           "parent_id": null,                                   "path": null},
-        {"id": "e5f6a7b8-c9d0-1234-efab-345678901234", "name": "Maturitní",                "name_en": "Matriculation",              "parent_id": "d4e5f6a7-b8c9-0123-defa-234567890123", "path": null},
-        {"id": "f6a7b8c9-d0e1-2345-fabc-456789012345", "name": "Učební obor",              "name_en": "Vocational training",        "parent_id": "d4e5f6a7-b8c9-0123-defa-234567890123", "path": null},
-        {"id": "a7b8c9d0-e1f2-3456-abcd-567890123456", "name": "Jazykové vzdělání",        "name_en": "Language education",         "parent_id": null,                                   "path": null},
-        {"id": "b8c9d0e1-f2a3-4567-bcde-678901234567", "name": "Úroveň B2",               "name_en": "Level B2",                   "parent_id": "a7b8c9d0-e1f2-3456-abcd-567890123456", "path": null},
-        {"id": "c9d0e1f2-a3b4-5678-cdef-789012345678", "name": "Úroveň C1",               "name_en": "Level C1",                   "parent_id": "a7b8c9d0-e1f2-3456-abcd-567890123456", "path": null}
+        {"id": "c1a2b3c4-d5e6-7f8a-9b0c-1d2e3f4a5b6c", "name": "VŠ vzdělání",              "name_en": "University education",       "parent_id": null,                                   "path": null, "rbacobject_id": "1b9a8f7e-6d5c-4b3a-9281-0f1e2d3c4b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890", "name": "Bakalářské",               "name_en": "Bachelor",                   "parent_id": "c1a2b3c4-d5e6-7f8a-9b0c-1d2e3f4a5b6c", "path": null, "rbacobject_id": "1b9a8f7e-6d5c-4b3a-9281-0f1e2d3c4b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "b2c3d4e5-f6a7-8901-bcde-f12345678901", "name": "Magisterské / Inženýrské", "name_en": "Master / Engineering",       "parent_id": "c1a2b3c4-d5e6-7f8a-9b0c-1d2e3f4a5b6c", "path": null, "rbacobject_id": "1b9a8f7e-6d5c-4b3a-9281-0f1e2d3c4b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "c3d4e5f6-a7b8-9012-cdef-123456789012", "name": "Doktorské",                "name_en": "PhD / Doctoral",             "parent_id": "c1a2b3c4-d5e6-7f8a-9b0c-1d2e3f4a5b6c", "path": null, "rbacobject_id": "1b9a8f7e-6d5c-4b3a-9281-0f1e2d3c4b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "d4e5f6a7-b8c9-0123-defa-234567890123", "name": "SŠ vzdělání",              "name_en": "Secondary school",           "parent_id": null,                                   "path": null, "rbacobject_id": "1b9a8f7e-6d5c-4b3a-9281-0f1e2d3c4b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "e5f6a7b8-c9d0-1234-efab-345678901234", "name": "Maturitní",                "name_en": "Matriculation",              "parent_id": "d4e5f6a7-b8c9-0123-defa-234567890123", "path": null, "rbacobject_id": "1b9a8f7e-6d5c-4b3a-9281-0f1e2d3c4b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "f6a7b8c9-d0e1-2345-fabc-456789012345", "name": "Učební obor",              "name_en": "Vocational training",        "parent_id": "d4e5f6a7-b8c9-0123-defa-234567890123", "path": null, "rbacobject_id": "1b9a8f7e-6d5c-4b3a-9281-0f1e2d3c4b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "a7b8c9d0-e1f2-3456-abcd-567890123456", "name": "Jazykové vzdělání",        "name_en": "Language education",         "parent_id": null,                                   "path": null, "rbacobject_id": "1b9a8f7e-6d5c-4b3a-9281-0f1e2d3c4b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "b8c9d0e1-f2a3-4567-bcde-678901234567", "name": "Úroveň B2",               "name_en": "Level B2",                   "parent_id": "a7b8c9d0-e1f2-3456-abcd-567890123456", "path": null, "rbacobject_id": "1b9a8f7e-6d5c-4b3a-9281-0f1e2d3c4b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "c9d0e1f2-a3b4-5678-cdef-789012345678", "name": "Úroveň C1",               "name_en": "Level C1",                   "parent_id": "a7b8c9d0-e1f2-3456-abcd-567890123456", "path": null, "rbacobject_id": "1b9a8f7e-6d5c-4b3a-9281-0f1e2d3c4b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"}
     ],
 
     "certificate_types": [
-        {"id": "7c8d9e0f-1a2b-3c4d-5e6f-7a8b9c0d1e2f", "name": "CCNA",                                "description": "Cisco Certified Network Associate – síťová infrastruktura",          "validity": "3 roky"},
-        {"id": "8d9e0f1a-2b3c-4d5e-6f7a-8b9c0d1e2f3a", "name": "AWS Cloud Practitioner",              "description": "Amazon Web Services – základní cloud certifikace",                   "validity": "3 roky"},
-        {"id": "9e0f1a2b-3c4d-5e6f-7a8b-9c0d1e2f3a4b", "name": "ECDL / ICDL",                        "description": "International Computer Driving Licence – digitální gramotnost",      "validity": "neomezeně"},
-        {"id": "0f1a2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c", "name": "Řidičský průkaz B",                  "description": "Oprávnění řídit osobní automobily skupiny B",                        "validity": "neomezeně"},
-        {"id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d", "name": "Microsoft Azure Fundamentals AZ-900", "description": "Základní znalosti Microsoft Azure cloud platformy",                  "validity": "neomezeně"},
-        {"id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e", "name": "Professional Scrum Master I (PSM I)", "description": "Certifikace agilního Scrum Mastera – Scrum.org",                    "validity": "neomezeně"},
-        {"id": "3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f", "name": "Google Analytics Certification",     "description": "Certifikace webové analytiky od Google",                            "validity": "1 rok"}
+        {"id": "7c8d9e0f-1a2b-3c4d-5e6f-7a8b9c0d1e2f", "name": "CCNA",                                "description": "Cisco Certified Network Associate – síťová infrastruktura",          "validity": "3 roky",      "rbacobject_id": "2c0b9a8f-7e6d-4c5b-a392-1f0e2d4c3b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "8d9e0f1a-2b3c-4d5e-6f7a-8b9c0d1e2f3a", "name": "AWS Cloud Practitioner",              "description": "Amazon Web Services – základní cloud certifikace",                   "validity": "3 roky",      "rbacobject_id": "2c0b9a8f-7e6d-4c5b-a392-1f0e2d4c3b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "9e0f1a2b-3c4d-5e6f-7a8b-9c0d1e2f3a4b", "name": "ECDL / ICDL",                        "description": "International Computer Driving Licence – digitální gramotnost",      "validity": "neomezeně",   "rbacobject_id": "2c0b9a8f-7e6d-4c5b-a392-1f0e2d4c3b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "0f1a2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c", "name": "Řidičský průkaz B",                  "description": "Oprávnění řídit osobní automobily skupiny B",                        "validity": "neomezeně",   "rbacobject_id": "2c0b9a8f-7e6d-4c5b-a392-1f0e2d4c3b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d", "name": "Microsoft Azure Fundamentals AZ-900", "description": "Základní znalosti Microsoft Azure cloud platformy",                  "validity": "neomezeně",   "rbacobject_id": "2c0b9a8f-7e6d-4c5b-a392-1f0e2d4c3b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e", "name": "Professional Scrum Master I (PSM I)", "description": "Certifikace agilního Scrum Mastera – Scrum.org",                    "validity": "neomezeně",   "rbacobject_id": "2c0b9a8f-7e6d-4c5b-a392-1f0e2d4c3b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"},
+        {"id": "3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f", "name": "Google Analytics Certification",     "description": "Certifikace webové analytiky od Google",                            "validity": "1 rok",       "rbacobject_id": "2c0b9a8f-7e6d-4c5b-a392-1f0e2d4c3b5a", "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f", "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"}
     ],
 
     "personal_data": [
+        {
+            "id":             "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "user_id":        "e2d0c8b6-a4f3-4971-8e0d-9c8b7a6f5e4d",
+            "birth_number":   null,
+            "birth_date":     null,
+            "birth_place":    null,
+            "citizenship":    null,
+            "nationality":    null,
+            "personal_title": null,
+            "note":           "velkayolanda",
+            "rbacobject_id":  "3d1c0b9a-8f7e-4d6c-b4a3-2f1e0d5c4b6a",
+            "createdby_id":   "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id":   "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
+        },
         {
             "id":             "4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f90",
             "user_id":        "a1b2c3d4-e5f6-4a7b-8c9d-e0f1a2b3c4d5",
@@ -36,7 +46,10 @@
             "citizenship":    "CZ",
             "nationality":    "česká",
             "personal_title": "Ing.",
-            "note":           "Jan Novák"
+            "note":           "Jan Novák",
+            "rbacobject_id":  "3d1c0b9a-8f7e-4d6c-b4a3-2f1e0d5c4b6a",
+            "createdby_id":   "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id":   "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id":             "5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f90a1",
@@ -47,7 +60,10 @@
             "citizenship":    "CZ",
             "nationality":    "česká",
             "personal_title": "Ing.",
-            "note":           "Marie Svobodová"
+            "note":           "Marie Svobodová",
+            "rbacobject_id":  "3d1c0b9a-8f7e-4d6c-b4a3-2f1e0d5c4b6a",
+            "createdby_id":   "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id":   "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id":             "6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f90a1b2",
@@ -58,7 +74,10 @@
             "citizenship":    "CZ",
             "nationality":    "česká",
             "personal_title": null,
-            "note":           "Petr Kratochvíl"
+            "note":           "Petr Kratochvíl",
+            "rbacobject_id":  "3d1c0b9a-8f7e-4d6c-b4a3-2f1e0d5c4b6a",
+            "createdby_id":   "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id":   "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id":             "7a8b9c0d-1e2f-3a4b-5c6d-7e8f90a1b2c3",
@@ -69,7 +88,10 @@
             "citizenship":    "CZ",
             "nationality":    "česká",
             "personal_title": "Bc.",
-            "note":           "Eva Novotná"
+            "note":           "Eva Novotná",
+            "rbacobject_id":  "3d1c0b9a-8f7e-4d6c-b4a3-2f1e0d5c4b6a",
+            "createdby_id":   "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id":   "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id":             "8b9c0d1e-2f3a-4b5c-6d7e-8f90a1b2c3d4",
@@ -80,7 +102,10 @@
             "citizenship":    "CZ",
             "nationality":    "česká",
             "personal_title": null,
-            "note":           "Tomáš Dvořák"
+            "note":           "Tomáš Dvořák",
+            "rbacobject_id":  "3d1c0b9a-8f7e-4d6c-b4a3-2f1e0d5c4b6a",
+            "createdby_id":   "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id":   "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id":             "9c0d1e2f-3a4b-5c6d-7e8f-90a1b2c3d4e5",
@@ -91,7 +116,10 @@
             "citizenship":    "CZ",
             "nationality":    "česká",
             "personal_title": null,
-            "note":           "Lucie Procházková"
+            "note":           "Lucie Procházková",
+            "rbacobject_id":  "3d1c0b9a-8f7e-4d6c-b4a3-2f1e0d5c4b6a",
+            "createdby_id":   "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id":   "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         }
     ],
 
@@ -102,7 +130,10 @@
             "institution_name": "FIT ČVUT Praha", "study_program": "Softwarové inženýrství",
             "degree": "Bc.", "started": "2018-09-01", "finished": "2021-06-30",
             "graduated": true, "description": null,
-            "type_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            "type_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+            "rbacobject_id": "4e2d1c0b-9a8f-4e7d-c5b4-3a2f1e0d6c5b",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "be2c3d4e-5f6a-7b8c-9d0e-1f2a3b4c5d6e",
@@ -110,7 +141,10 @@
             "institution_name": "FIT ČVUT Praha", "study_program": "Kybernetika a robotika",
             "degree": "Ing.", "started": "2021-09-01", "finished": "2023-06-30",
             "graduated": true, "description": null,
-            "type_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+            "type_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+            "rbacobject_id": "4e2d1c0b-9a8f-4e7d-c5b4-3a2f1e0d6c5b",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "cf3d4e5f-6a7b-8c9d-0e1f-2a3b4c5d6e7f",
@@ -118,7 +152,10 @@
             "institution_name": "VŠE Praha", "study_program": "Podniková informatika",
             "degree": "Bc.", "started": "2019-09-01", "finished": "2022-06-30",
             "graduated": true, "description": "Specializace: datová analytika",
-            "type_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            "type_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+            "rbacobject_id": "4e2d1c0b-9a8f-4e7d-c5b4-3a2f1e0d6c5b",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "d04e5f6a-7b8c-9d0e-1f2a-3b4c5d6e7f80",
@@ -126,7 +163,10 @@
             "institution_name": "VŠE Praha", "study_program": "Informační management",
             "degree": "Ing.", "started": "2022-09-01", "finished": "2024-06-30",
             "graduated": true, "description": null,
-            "type_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+            "type_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+            "rbacobject_id": "4e2d1c0b-9a8f-4e7d-c5b4-3a2f1e0d6c5b",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "e15f6a7b-8c9d-0e1f-2a3b-4c5d6e7f8091",
@@ -134,7 +174,10 @@
             "institution_name": "SPŠE Ostrava", "study_program": "Informační technologie",
             "degree": null, "started": "2014-09-01", "finished": "2018-06-30",
             "graduated": true, "description": null,
-            "type_id": "e5f6a7b8-c9d0-1234-efab-345678901234"
+            "type_id": "e5f6a7b8-c9d0-1234-efab-345678901234",
+            "rbacobject_id": "4e2d1c0b-9a8f-4e7d-c5b4-3a2f1e0d6c5b",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "f26a7b8c-9d0e-1f2a-3b4c-5d6e7f8091a2",
@@ -142,7 +185,10 @@
             "institution_name": "MFF UK Praha", "study_program": "Matematická lingvistika",
             "degree": "Bc.", "started": "2020-09-01", "finished": "2023-06-30",
             "graduated": true, "description": null,
-            "type_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            "type_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+            "rbacobject_id": "4e2d1c0b-9a8f-4e7d-c5b4-3a2f1e0d6c5b",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "a37b8c9d-0e1f-2a3b-4c5d-6e7f8091a2b3",
@@ -150,7 +196,10 @@
             "institution_name": "FEL ČVUT Praha", "study_program": "Elektrotechnika a informatika",
             "degree": "Bc.", "started": "2017-09-01", "finished": "2020-06-30",
             "graduated": true, "description": null,
-            "type_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+            "type_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+            "rbacobject_id": "4e2d1c0b-9a8f-4e7d-c5b4-3a2f1e0d6c5b",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "b48c9d0e-1f2a-3b4c-5d6e-7f8091a2b3c4",
@@ -158,7 +207,10 @@
             "institution_name": "FEL ČVUT Praha", "study_program": "Elektrotechnika a energetika",
             "degree": "Ing.", "started": "2020-09-01", "finished": null,
             "graduated": false, "description": "Studium stále probíhá",
-            "type_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+            "type_id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+            "rbacobject_id": "4e2d1c0b-9a8f-4e7d-c5b4-3a2f1e0d6c5b",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "c59d0e1f-2a3b-4c5d-6e7f-8091a2b3c4d5",
@@ -166,7 +218,10 @@
             "institution_name": "Gymnázium Liberec", "study_program": "Všeobecné vzdělání",
             "degree": null, "started": "2016-09-01", "finished": "2020-06-30",
             "graduated": true, "description": null,
-            "type_id": "e5f6a7b8-c9d0-1234-efab-345678901234"
+            "type_id": "e5f6a7b8-c9d0-1234-efab-345678901234",
+            "rbacobject_id": "4e2d1c0b-9a8f-4e7d-c5b4-3a2f1e0d6c5b",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         }
     ],
 
@@ -175,73 +230,109 @@
             "id": "d60e1f2a-3b4c-5d6e-7f80-91a2b3c4d5e6",
             "user_id": "4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f90",
             "certificate_id": "7c8d9e0f-1a2b-3c4d-5e6f-7a8b9c0d1e2f",
-            "issue_date": "2022-03-15", "expiration_date": "2025-03-15", "is_valid": false
+            "issue_date": "2022-03-15", "expiration_date": "2025-03-15", "is_valid": false,
+            "rbacobject_id": "5f3e2d1c-0b9a-4f8e-d6c5-4b3a2f1e0d7c",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "e71f2a3b-4c5d-6e7f-8091-a2b3c4d5e6f7",
             "user_id": "4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f90",
             "certificate_id": "8d9e0f1a-2b3c-4d5e-6f7a-8b9c0d1e2f3a",
-            "issue_date": "2023-07-01", "expiration_date": "2026-07-01", "is_valid": true
+            "issue_date": "2023-07-01", "expiration_date": "2026-07-01", "is_valid": true,
+            "rbacobject_id": "5f3e2d1c-0b9a-4f8e-d6c5-4b3a2f1e0d7c",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "f82a3b4c-5d6e-7f80-91a2-b3c4d5e6f7a8",
             "user_id": "4d5e6f7a-8b9c-0d1e-2f3a-4b5c6d7e8f90",
             "certificate_id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
-            "issue_date": "2024-01-10", "expiration_date": null, "is_valid": true
+            "issue_date": "2024-01-10", "expiration_date": null, "is_valid": true,
+            "rbacobject_id": "5f3e2d1c-0b9a-4f8e-d6c5-4b3a2f1e0d7c",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "a93b4c5d-6e7f-8091-a2b3-c4d5e6f7a8b9",
             "user_id": "5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f90a1",
             "certificate_id": "9e0f1a2b-3c4d-5e6f-7a8b-9c0d1e2f3a4b",
-            "issue_date": "2021-05-20", "expiration_date": null, "is_valid": true
+            "issue_date": "2021-05-20", "expiration_date": null, "is_valid": true,
+            "rbacobject_id": "5f3e2d1c-0b9a-4f8e-d6c5-4b3a2f1e0d7c",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "b04c5d6e-7f80-91a2-b3c4-d5e6f7a8b9c0",
             "user_id": "5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f90a1",
             "certificate_id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
-            "issue_date": "2023-11-15", "expiration_date": null, "is_valid": true
+            "issue_date": "2023-11-15", "expiration_date": null, "is_valid": true,
+            "rbacobject_id": "5f3e2d1c-0b9a-4f8e-d6c5-4b3a2f1e0d7c",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "c15d6e7f-8091-a2b3-c4d5-e6f7a8b9c0d1",
             "user_id": "5e6f7a8b-9c0d-1e2f-3a4b-5c6d7e8f90a1",
             "certificate_id": "3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f",
-            "issue_date": "2024-03-01", "expiration_date": "2025-03-01", "is_valid": true
+            "issue_date": "2024-03-01", "expiration_date": "2025-03-01", "is_valid": true,
+            "rbacobject_id": "5f3e2d1c-0b9a-4f8e-d6c5-4b3a2f1e0d7c",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "d26e7f80-91a2-b3c4-d5e6-f7a8b9c0d1e2",
             "user_id": "6f7a8b9c-0d1e-2f3a-4b5c-6d7e8f90a1b2",
             "certificate_id": "0f1a2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
-            "issue_date": "2010-08-10", "expiration_date": null, "is_valid": true
+            "issue_date": "2010-08-10", "expiration_date": null, "is_valid": true,
+            "rbacobject_id": "5f3e2d1c-0b9a-4f8e-d6c5-4b3a2f1e0d7c",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "e37f8091-a2b3-c4d5-e6f7-a8b9c0d1e2f3",
             "user_id": "7a8b9c0d-1e2f-3a4b-5c6d-7e8f90a1b2c3",
             "certificate_id": "1a2b3c4d-5e6f-7a8b-9c0d-1e2f3a4b5c6d",
-            "issue_date": "2024-06-20", "expiration_date": null, "is_valid": true
+            "issue_date": "2024-06-20", "expiration_date": null, "is_valid": true,
+            "rbacobject_id": "5f3e2d1c-0b9a-4f8e-d6c5-4b3a2f1e0d7c",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "f4809112-b3c4-d5e6-f7a8-b9c0d1e2f3a4",
             "user_id": "8b9c0d1e-2f3a-4b5c-6d7e-8f90a1b2c3d4",
             "certificate_id": "7c8d9e0f-1a2b-3c4d-5e6f-7a8b9c0d1e2f",
-            "issue_date": "2023-09-01", "expiration_date": "2026-09-01", "is_valid": true
+            "issue_date": "2023-09-01", "expiration_date": "2026-09-01", "is_valid": true,
+            "rbacobject_id": "5f3e2d1c-0b9a-4f8e-d6c5-4b3a2f1e0d7c",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "a5912a3b-c4d5-e6f7-a8b9-c0d1e2f3a4b5",
             "user_id": "8b9c0d1e-2f3a-4b5c-6d7e-8f90a1b2c3d4",
             "certificate_id": "2b3c4d5e-6f7a-8b9c-0d1e-2f3a4b5c6d7e",
-            "issue_date": "2022-05-15", "expiration_date": null, "is_valid": true
+            "issue_date": "2022-05-15", "expiration_date": null, "is_valid": true,
+            "rbacobject_id": "5f3e2d1c-0b9a-4f8e-d6c5-4b3a2f1e0d7c",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "b6a23b4c-d5e6-f7a8-b9c0-d1e2f3a4b5c6",
             "user_id": "9c0d1e2f-3a4b-5c6d-7e8f-90a1b2c3d4e5",
             "certificate_id": "3c4d5e6f-7a8b-9c0d-1e2f-3a4b5c6d7e8f",
-            "issue_date": "2024-02-14", "expiration_date": "2025-02-14", "is_valid": true
+            "issue_date": "2024-02-14", "expiration_date": "2025-02-14", "is_valid": true,
+            "rbacobject_id": "5f3e2d1c-0b9a-4f8e-d6c5-4b3a2f1e0d7c",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         },
         {
             "id": "c7b34c5d-e6f7-a8b9-c0d1-e2f3a4b5c6d7",
             "user_id": "9c0d1e2f-3a4b-5c6d-7e8f-90a1b2c3d4e5",
             "certificate_id": "0f1a2b3c-4d5e-6f7a-8b9c-0d1e2f3a4b5c",
-            "issue_date": "2022-09-30", "expiration_date": null, "is_valid": true
+            "issue_date": "2022-09-30", "expiration_date": null, "is_valid": true,
+            "rbacobject_id": "5f3e2d1c-0b9a-4f8e-d6c5-4b3a2f1e0d7c",
+            "createdby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f",
+            "changedby_id": "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
         }
     ]
 }

@@ -140,8 +140,8 @@ SŠ vzdělání  (parent_id = NULL)
 Kořenové uzly mají `parent_id = NULL`. `EducationModel.type_id` je FK na tento číselník – konkrétní záznam o vzdělání jednoduše ukáže na uzel v tomto stromě.
 
 **Soubory:**
-- `src/DBDefinitions/Domain_Education/EducationTypeModel.py` – nový model, tabulka `educationtypes`
-- `src/DBDefinitions/Domain_Education/EducationModel.py` – přidán `type_id` FK + `type` relationship
+- `src/DBDefinitions/Domain_Personalities/Education` – nový model, tabulka `educationtypes`
+- `src/DBDefinitions/Domain_Personalities/Education` – přidán `type_id` FK + `type` relationship
 
 ---
 
@@ -150,9 +150,9 @@ Kořenové uzly mají `parent_id = NULL`. `EducationModel.type_id` je FK na tent
 | Soubor | Bug | Oprava |
 |---|---|---|
 | `src/ServiceDefinitions/main.py` | `loader.insert()` volá jen `flush()`, ne `commit()` → data se po CLI create odrolují, tabulka vypadá prázdná | Přidán `await session.commit()` po každé operaci |
-| `src/GraphTypeDefinitions/Domain_Certificates/__init__.py` | Chyběly wrapper třídy `Query_Domain_Certificates` a `Mutation_Domain_Certificates` | Doplněny podle vzoru Education/PersonalData |
-| `src/GraphTypeDefinitions/query.py` | `Query_Domain_Certificates` použit bez importu → `NameError` | Přidán import z `Domain_Certificates` |
-| `src/GraphTypeDefinitions/mutation.py` | `Mutation_Domain_Certificates` použit bez importu → `NameError` | Přidán import z `Domain_Certificates` |
+| `src/GraphTypeDefinitions/Domain_Personalities/Certificates` | Chyběly wrapper třídy `Query_Domain_Certificates` a `Mutation_Domain_Certificates` | Doplněny podle vzoru Education/PersonalData |
+| `src/GraphTypeDefinitions/query.py` | `Query_Domain_Certificates` použit bez importu → `NameError` | Přidán import z `Certificates` |
+| `src/GraphTypeDefinitions/mutation.py` | `Mutation_Domain_Certificates` použit bez importu → `NameError` | Přidán import z `Certificates` |
 
 ---
 
@@ -190,6 +190,8 @@ Kořenové uzly mají `parent_id = NULL`. `EducationModel.type_id` je FK na tent
 - [x] Začít README deníček
 
 **Do 17. 11. (služby)**
+- [ ] pridat rbac, created by, lastchange
+- [ ] pridat kategorie do certifikatu - strom
 - [ ] Loadery a Services pro všechny entity
 - [ ] Transakce a rollback
 - [ ] Unit testy služeb
