@@ -9,7 +9,7 @@ class CertificateTypeModel(BaseDBModel):
     Tato tabulka udržuje hierarchickou strukturu (strom) všech dostupných
     certifikátů a jejich kategorií (např. kategorie Angličtina -> STANAG 6001).
     """
-    __tablename__ = "certificatetypes"
+    __tablename__ = "certificate_types"
 
     # --- Konfigurace stromu pro BaseService ---
     path_attribute_name = "path"
@@ -49,7 +49,7 @@ class CertificateTypeModel(BaseDBModel):
 
     # --- Stromové vazby (Hierarchie) ---
     master_certificate_type_id: Mapped[IDType] = mapped_column(
-        ForeignKey("certificatetypes.id"),
+        ForeignKey("certificate_types.id"),
         nullable=True,
         default=None,
         index=True,

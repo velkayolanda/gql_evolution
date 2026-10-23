@@ -50,6 +50,17 @@ from src.ServiceDefinitions.ServiceContext import ServiceContext, SERVICES
 
 JsonDict = dict[str, typing.Any]
 
+# Default author/owner IDs used when creating entities via the CLI.
+# Mirrors the values seeded in systemdata.json for the velkayolanda account.
+_CLI_CREATEDBY_ID = "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
+
+_CLI_RBAC_DEFAULTS: dict[str, str] = {
+    "CertificateTypeService": "2c0b9a8f-7e6d-4c5b-a392-1f0e2d4c3b5a",
+    "PersonalDataService":    "3d1c0b9a-8f7e-4d6c-b4a3-2f1e0d5c4b6a",
+    "EducationService":       "4e2d1c0b-9a8f-4e7d-c5b4-3a2f1e0d6c5b",
+    "UserCertificateService": "5f3e2d1c-0b9a-4f8e-d6c5-4b3a2f1e0d7c",
+}
+
 
 class CliError(Exception):
     pass
@@ -455,6 +466,18 @@ async def op_create(
 
     if not isinstance(entity_payload, dict):
         raise CliError("'entity' must be an object")
+
+    entity_payload = dict(entity_payload)
+    column_names = get_column_names(model_cls)
+
+    for field in ("createdby_id", "changedby_id"):
+        if field in column_names and field not in entity_payload:
+            entity_payload[field] = _CLI_CREATEDBY_ID
+
+    if "rbacobject_id" in column_names and "rbacobject_id" not in entity_payload:
+        default_rbac = _CLI_RBAC_DEFAULTS.get(service_cls.__name__)
+        if default_rbac:
+            entity_payload["rbacobject_id"] = default_rbac
 
     entity = build_instance(model_cls, entity_payload)
 
