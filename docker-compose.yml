@@ -148,6 +148,8 @@ services:
   # ── PersonalData – tvůj servis ────────────────────────────────────────────
   gql_personalities:
     <<: *common-gql
+    image: velkayolanda/gql-personalities:latest
+    # TO SWITCH TO DOCKER HUB: remove the 3 lines below (build, context, dockerfile)
     build:
       context: .
       dockerfile: Dockerfile

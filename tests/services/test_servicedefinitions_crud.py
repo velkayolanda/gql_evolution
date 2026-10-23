@@ -112,13 +112,15 @@ async def service_context():
     makeUp=True:
       Lokálně pomůže vytvořit tabulky, pokud ještě neexistují.
     """
-    session_maker = await startEngine(
+    result = await startEngine(
         ComposeConnectionString(),
         makeDrop=False,
         makeUp=True,
     )
 
-    assert session_maker is not None, "Unable to create async session maker"
+    assert result is not None, "Unable to create async session maker"
+
+    session_maker, _ = result
 
     async with session_maker() as session:
         loaders = LoaderMap(session)
@@ -240,19 +242,38 @@ def build_instance(model_cls: type, payload: JsonDict) -> typing.Any:
     return model_cls(**constructor_payload)
 
 
+def get_unique_column_names(model_cls: type) -> set[str]:
+    unique_cols: set[str] = set()
+    table = inspect(model_cls).persist_selectable
+    col_name_to_prop: dict[str, str] = {}
+    mapper = inspect(model_cls)
+    for prop in mapper.attrs:
+        if isinstance(prop, ColumnProperty):
+            for col in prop.columns:
+                col_name_to_prop[col.name] = prop.key
+    for constraint in table.constraints:
+        if isinstance(constraint, sqlalchemy.UniqueConstraint):
+            for col in constraint.columns:
+                if col.name in col_name_to_prop:
+                    unique_cols.add(col_name_to_prop[col.name])
+    return unique_cols
+
+
 def make_copy_payload(model_cls: type, source_entity: typing.Any) -> JsonDict:
     """
     Vytvoří payload pro Create jako kopii existující entity s novým UUID.
 
-    Pozor:
-    lastchange z původní entity se kopírovat může, ale pro následný Update
-    se nesmí použít tato původní hodnota. Po Create je nutné entitu znovu
-    načíst a použít aktuální lastchange uložený v DB.
+    Randomizuje PK i sloupce pokryté UniqueConstraint (např. user_id v PersonalData).
     """
     pk_name = get_primary_key_name(model_cls)
+    unique_cols = get_unique_column_names(model_cls)
 
     payload = serialize_instance(source_entity)
     payload[pk_name] = uuid.uuid4()
+
+    for col in unique_cols:
+        if col != pk_name and col in payload and isinstance(payload[col], uuid.UUID):
+            payload[col] = uuid.uuid4()
 
     return payload
 

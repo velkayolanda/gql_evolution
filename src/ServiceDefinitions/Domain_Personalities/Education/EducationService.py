@@ -6,6 +6,8 @@ from src.ServiceDefinitions.ServiceContext import ServiceContext
 
 
 class EducationService(BaseService[IDLoader[EducationModel]]):
+    dbModel = EducationModel
+
     @classmethod
     async def getLoader(cls, ctx: ServiceContext) -> IDLoader[EducationModel]:
         return ctx.loaders.EducationModel

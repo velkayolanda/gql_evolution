@@ -166,7 +166,6 @@ Kořenové uzly mají `parent_id = NULL`. `EducationModel.type_id` je FK na tent
 | Autorizace atributů a CUD | až 15 | |
 | `systemdata.json` | 5 | |
 | Code coverage ≥ 95 % | 10 | včetně správnosti testů |
-| Docker image na Docker Hubu (tag `latest`) | 5 | |
 | Obhajoba | 60 | každý předvede svou část |
 | Porušení architektury | **−15** | |
 
@@ -175,7 +174,88 @@ Kořenové uzly mají `parent_id = NULL`. `EducationModel.type_id` je FK na tent
 
 ---
 
-## 6. Navržený postup podle termínů
+## 6. Užitečné příkazy
+
+### Docker
+```bash
+# Spustit celý stack (builduje lokálně z kódu)
+docker compose up --build
+
+# Spustit bez rebuildu
+docker compose up
+
+# Zastavit (data zůstanou)
+docker compose down
+
+# Zastavit A smazat všechna data
+docker compose down -v
+
+# Buildovat a pushovat tvůj image na Docker Hub
+docker build -t velkayolanda/gql-personalities:latest .
+docker push velkayolanda/gql-personalities:latest
+```
+
+### CLI – Service vrstva (spouštět z rootu projektu)
+
+**List:**
+```
+python -m src.ServiceDefinitions.main EducationType list
+```
+```
+python -m src.ServiceDefinitions.main Education list
+```
+```
+python -m src.ServiceDefinitions.main PersonalData list
+```
+```
+python -m src.ServiceDefinitions.main CertificateType list
+```
+```
+python -m src.ServiceDefinitions.main UserCertificate list
+```
+
+**Create** (createdby_id, changedby_id, rbacobject_id se doplní automaticky):
+```
+python -m src.ServiceDefinitions.main EducationType create "{\"name\": \"Název\", \"name_en\": \"Name\"}"
+```
+```
+python -m src.ServiceDefinitions.main Education create "{\"personality_id\": \"uuid-zde\", \"institution_name\": \"FIT CVUT\", \"study_program\": \"Informatika\", \"degree\": \"Bc.\", \"started\": \"2022-09-01\", \"graduated\": false}"
+```
+```
+python -m src.ServiceDefinitions.main PersonalData create "{\"user_id\": \"uuid-zde\", \"note\": \"Poznamka\"}"
+```
+```
+python -m src.ServiceDefinitions.main CertificateType create "{\"name\": \"Název\", \"description\": \"Popis\"}"
+```
+```
+python -m src.ServiceDefinitions.main UserCertificate create "{\"user_id\": \"uuid-zde\", \"certificate_id\": \"uuid-zde\", \"issue_date\": \"2024-01-01\", \"is_valid\": true}"
+```
+
+**Get podle ID:**
+```
+python -m src.ServiceDefinitions.main CertificateType get "{\"id\": \"uuid-zde\"}"
+```
+
+### Testy
+
+**Všechny testy:**
+```
+pytest tests/ -v
+```
+
+**Jen CRUD testy service vrstvy (integrační, potřebuje běžící DB):**
+```
+pytest tests/services/test_servicedefinitions_crud.py -v
+```
+
+**S výpisem logů:**
+```
+pytest tests/services/test_servicedefinitions_crud.py -v -s
+```
+
+---
+
+## 7. Navržený postup podle termínů
 
 **Do 9. 10.**
 - [X] Potvrdit téma (pávkovi do tabulky)
@@ -191,11 +271,11 @@ Kořenové uzly mají `parent_id = NULL`. `EducationModel.type_id` je FK na tent
 
 **Do 17. 11. (služby)**
 - [x] pridat rbac, created by, lastchange
-- [ ] pridat kategorie do certifikatu - strom
-- [ ] Loadery a Services pro všechny entity
+- [x] pridat kategorie do certifikatu - strom
+- [x] Loadery a Services pro všechny entity
 - [ ] Transakce a rollback
-- [ ] Unit testy služeb
-- [ ] Demodata
+- [x] Unit testy služeb
+- [x] Demodata
 
 **Do 15. 1. (agentní den)**
 - [ ] Zapojit sdíleného PydanticAI agenta

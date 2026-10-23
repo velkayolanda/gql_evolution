@@ -187,3 +187,57 @@ V `src/GraphTypeDefinitions/Domain_Personalities/Certificates` chyběly wrapper 
 - `src/GraphTypeDefinitions/Domain_Personalities/Certificates` – přidány `Query_Domain_Certificates`, `Mutation_Domain_Certificates`
 - `src/GraphTypeDefinitions/query.py` – přidán import `Query_Domain_Certificates`
 - `src/GraphTypeDefinitions/mutation.py` – přidán import `Mutation_Domain_Certificates`
+
+---
+
+### 2026-10-22 – RBAC pole + systemdata.json rozšíření
+
+Přidána tři povinná RBAC pole do všech DB modelů: `rbacobject_id`, `createdby_id`, `changedby_id`. Zároveň rozšířen `systemdata.json` o seed data pro všechny nové tabulky.
+
+**Co bylo přidáno/opraveno:**
+- Všechny modely (`PersonalDataModel`, `EducationModel`, `EducationTypeModel`, `CertificateTypeModel`, `UserCertificateModel`) doplněny o RBAC sloupce
+- `systemdata.json` – přidány záznamy pro `education_types` (10 uzlů stromu), `certificate_types` (7 typů), `personal_data` (7 osob včetně systémového uživatele `velkayolanda`), `education` (9 záznamů), `user_certificates` (12 záznamů)
+- Každý záznam má `createdby_id` a `changedby_id` ukazující na `velkayolanda`, `rbacobject_id` je unikátní per tabulka
+
+---
+
+### 2026-10-23 – Oprava názvů tabulek + importů + Loadery a Services
+
+Odhaleny a opraveny zbývající bugy ve vrstvě importů a názvů tabulek. Dokončena vrstva Loaderů a Services pro všechny entity.
+
+**Bug – špatný název tabulky `certificatetypes`**
+
+`CertificateTypeModel` měl `__tablename__ = "certificatetypes"` místo správného `certificate_types`. `UserCertificateModel` měl `ForeignKey("certificatetypes.id")`. Opraveno v obou modelech. Stará tabulka v PostgreSQL musela být ručně dropnuta a recreatována (`create_all` existující tabulky nemění).
+
+**Bug – absolutní importy v ServiceContext a Domain_Personalities**
+
+`ServiceContext.py` používal `from ServiceDefinitions.Domain_Personalities...` (bez `src.` prefixu) – nefungovalo při spuštění přes `-m src.ServiceDefinitions.main`. `Domain_Personalities/__init__.py` používal bare importy `from PersonalData import ...` místo relativních. Obojí opraveno.
+
+**Bug – špatné kódování výstupu CLI na Windows**
+
+`print_json()` v `main.py` používal `print()` který na Windows CP1252 konzoli selhal na českých znacích. Opraveno přímým zápisem do `sys.stdout.buffer` s UTF-8 encodingem.
+
+**Nová service – EducationTypeService**
+
+Přidána chybějící `EducationTypeService` pro číselník typů vzdělání. Doplněn loader `EducationTypeModel` do `LoaderMap`. Přidán `dbModel` do `PersonalDataService` a `EducationService` pro konzistenci. Vše zaregistrováno v `ServiceContext`.
+
+**CLI defaulty pro create**
+
+`main.py` – přidány konstanty `_CLI_CREATEDBY_ID` a `_CLI_RBAC_DEFAULTS`. Při `create` se `createdby_id`, `changedby_id`, `rbacobject_id` automaticky doplní pokud nejsou v payloadu.
+
+**Soubory změněné:**
+- `src/DBDefinitions/Domain_Personalities/Certificates/CertificateTypeModel.py` – oprava `__tablename__` a self-FK
+- `src/DBDefinitions/Domain_Personalities/Certificates/UserCertificateModel.py` – oprava FK na `certificate_types.id`
+- `src/ServiceDefinitions/ServiceContext.py` – oprava importů + nová `EducationTypeService` property
+- `src/ServiceDefinitions/Domain_Personalities/Education/EducationTypeService.py` – nový soubor
+- `src/Dataloaders/__init__.py` – přidán `EducationTypeModel` loader
+- `src/ServiceDefinitions/main.py` – UTF-8 output fix + CLI RBAC defaulty
+
+---
+
+### 2026-10-23 – Docker Hub příprava
+
+Projekt připraven pro publikaci na Docker Hub.
+
+- `docker-compose.yml` – přidán `image: velkayolanda/gql-personalities:latest` k `gql_personalities` službě
+- Pro publikaci: `docker build -t velkayolanda/gql-personalities:latest . && docker push velkayolanda/gql-personalities:latest`

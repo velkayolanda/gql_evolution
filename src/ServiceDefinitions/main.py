@@ -55,6 +55,7 @@ JsonDict = dict[str, typing.Any]
 _CLI_CREATEDBY_ID = "f3e1d9c7-b5a4-4e82-9f0e-1c2b3a4d5e6f"
 
 _CLI_RBAC_DEFAULTS: dict[str, str] = {
+    "EducationTypeService":   "1b9a8f7e-6d5c-4b3a-9281-0f1e2d3c4b5a",
     "CertificateTypeService": "2c0b9a8f-7e6d-4c5b-a392-1f0e2d4c3b5a",
     "PersonalDataService":    "3d1c0b9a-8f7e-4d6c-b4a3-2f1e0d5c4b6a",
     "EducationService":       "4e2d1c0b-9a8f-4e7d-c5b4-3a2f1e0d6c5b",
@@ -219,6 +220,23 @@ def get_relationships(model_cls: type) -> dict[str, RelationshipProperty]:
     }
 
 
+def _coerce_column_value(model_cls: type, key: str, value: typing.Any) -> typing.Any:
+    if value is None:
+        return None
+    mapper = inspect(model_cls)
+    for prop in mapper.attrs:
+        if not isinstance(prop, ColumnProperty) or prop.key != key:
+            continue
+        col_type = prop.columns[0].type
+        if isinstance(col_type, sqlalchemy.Date) and isinstance(value, str):
+            return datetime.date.fromisoformat(value)
+        if isinstance(col_type, sqlalchemy.DateTime) and isinstance(value, str):
+            return datetime.datetime.fromisoformat(value)
+        if isinstance(col_type, sqlalchemy.Boolean) and isinstance(value, str):
+            return value.lower() in ("true", "1", "yes")
+    return value
+
+
 def split_columns_and_relationships(
     model_cls: type,
     payload: JsonDict,
@@ -249,7 +267,7 @@ def split_columns_and_relationships(
             continue
 
         if key in column_names:
-            column_values[key] = value
+            column_values[key] = _coerce_column_value(model_cls, key, value)
         elif key in relationships:
             relationship_values[key] = value
         else:
