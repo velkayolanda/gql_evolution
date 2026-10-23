@@ -21,7 +21,7 @@ class UserCertificateModel(BaseDBModel):
     )
 
     certificate_id: Mapped[IDType] = mapped_column(
-        ForeignKey("certificatetypes.id"),
+        ForeignKey("certificate_types.id"),
         index=True,
         nullable=False,
         default=None,
