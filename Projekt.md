@@ -190,7 +190,7 @@ Kořenové uzly mají `parent_id = NULL`. `EducationModel.type_id` je FK na tent
 - [x] Začít README deníček
 
 **Do 17. 11. (služby)**
-- [ ] pridat rbac, created by, lastchange
+- [x] pridat rbac, created by, lastchange
 - [ ] pridat kategorie do certifikatu - strom
 - [ ] Loadery a Services pro všechny entity
 - [ ] Transakce a rollback

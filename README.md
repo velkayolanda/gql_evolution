@@ -93,7 +93,7 @@ Vytvořena databázová vrstva pro doménu `PersonalData` podle vzoru `Domain_Ev
 **Co bylo přidáno:**
 - `src/DBDefinitions/Domain_Personalities/PersonalData` – SQLAlchemy 2.x model, tabulka `personaldata`, `UniqueConstraint` na `user_id` (max 1 záznam na uživatele), `user_id` jako soft federation FK (User žije v jiné službě)
 - `src/Dataloaders/__init__.py` – doplněn `PersonalDataModel` loader do `LoaderMap`
-- `src/ServiceDefinitions/Domain_PersonalData/PersonalDataService.py` – CRUD service přes `BaseService`
+- `src/ServiceDefinitions/Domain_Personalities/PersonalData` – CRUD service přes `BaseService`
 - `src/GraphTypeDefinitions/Domain_Personalities/PersonalData` – GQL typ s query (`personal_data_by_id`, `personal_data_page`) a mutacemi (insert / update / delete), chybové kódy jako UUID
 - `src/GraphTypeDefinitions/query.py` a `mutation.py` – PersonalData doména zapojena do root Query / Mutation
 
@@ -113,7 +113,7 @@ Vytvořena kompletní vrstva pro doménu `Education` podle stejného vzoru jako 
 - `src/DBDefinitions/Domain_Personalities/Education` – SQLAlchemy 2.x model, tabulka `education`, bez `UniqueConstraint` (více záznamů na osobu); `user_id` jako soft FK na PersonalData
 - `src/DBDefinitions/__init__.py` – doplněn import a export `EducationModel`
 - `src/Dataloaders/__init__.py` – doplněn `EducationModel` loader do `LoaderMap`
-- `src/ServiceDefinitions/Domain_Education/EducationService.py` – CRUD service přes `BaseService`
+- `src/ServiceDefinitions/Domain_Personalities/Education` – CRUD service přes `BaseService`
 - `src/ServiceDefinitions/ServiceContext.py` – doplněna property `EducationService` do `ServiceRegistry`
 - `src/GraphTypeDefinitions/Domain_Personalities/Education` – GQL typ s query (`education_by_id`, `education_page`) a mutacemi (insert / update / delete), chybové kódy jako UUID
 - `src/GraphTypeDefinitions/query.py` a `mutation.py` – Education doména zapojena do root Query / Mutation
@@ -134,7 +134,7 @@ Vytvořena kompletní vrstva pro doménu `Certificates` podle stejného vzoru ja
 - `src/DBDefinitions/Domain_Personalities/Certificates` – SQLAlchemy 2.x model, tabulka `certificates`; obsahuje `user_id` s FK na `personaldata.id` (nullable=False), dále `title`, `issuer`, `certificate_number`, `issued`, `valid_to`, `level`, `description` a `certificate_type_id` (soft link na číselník v cizí službě gql_personalities)
 - `src/DBDefinitions/__init__.py` – doplněn import a export `CertificateModel`
 - `src/Dataloaders/__init__.py` – doplněn `CertificateModel` loader do `LoaderMap`
-- `src/ServiceDefinitions/Domain_Certificates/CertificateTypeService.py` – CRUD service přes `BaseService`
+- `src/ServiceDefinitions/Domain_Personalities/Certificates` – CRUD service přes `BaseService`
 - `src/ServiceDefinitions/ServiceContext.py` – doplněna property `CertificateService` do `ServiceRegistry`
 - `src/GraphTypeDefinitions/Domain_Personalities/Certificates` – GQL typ s query (`certificate_by_id`, `certificate_page`), filtrem (`CertificateInputFilter`) a mutacemi insert / update / delete; chybové kódy jako UUID
 - `src/GraphTypeDefinitions/query.py` a `mutation.py` – Certificates doména zapojena do root Query / Mutation
