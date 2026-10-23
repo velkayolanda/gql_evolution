@@ -6,10 +6,10 @@ from src.Dataloaders import LoaderMap
 if typing.TYPE_CHECKING:
     from src.ServiceDefinitions.Domain_Events.EventService import EventService as _EventService
     from src.ServiceDefinitions.Domain_Events.EventInvitationService import EventInvitationService as _EventInvitationService
-    from ServiceDefinitions.Domain_Personalities.PersonalData.PersonalDataService import PersonalDataService as _PersonalDataService
-    from ServiceDefinitions.Domain_Personalities.Education.EducationService import EducationService as _EducationService
-    from ServiceDefinitions.Domain_Personalities.Certificates import CertificateTypeService as _CertificateTypeService
-    from ServiceDefinitions.Domain_Personalities.Certificates.UserCertificateService import UserCertificateService as _UserCertificateService
+    from src.ServiceDefinitions.Domain_Personalities.PersonalData.PersonalDataService import PersonalDataService as _PersonalDataService
+    from src.ServiceDefinitions.Domain_Personalities.Education.EducationService import EducationService as _EducationService
+    from src.ServiceDefinitions.Domain_Personalities.Certificates import CertificateTypeService as _CertificateTypeService
+    from src.ServiceDefinitions.Domain_Personalities.Certificates.UserCertificateService import UserCertificateService as _UserCertificateService
 
 @dataclasses.dataclass(frozen=True)
 class ServiceRegistry:
@@ -25,22 +25,22 @@ class ServiceRegistry:
 
     @property
     def PersonalDataService(self) -> type['_PersonalDataService']:
-        from ServiceDefinitions.Domain_Personalities.PersonalData.PersonalDataService import PersonalDataService
+        from src.ServiceDefinitions.Domain_Personalities.PersonalData.PersonalDataService import PersonalDataService
         return PersonalDataService
 
     @property
     def EducationService(self) -> type['_EducationService']:
-        from ServiceDefinitions.Domain_Personalities.Education.EducationService import EducationService
+        from src.ServiceDefinitions.Domain_Personalities.Education.EducationService import EducationService
         return EducationService
 
     @property
     def CertificateTypeService(self) -> type['_CertificateTypeService']:
-        from ServiceDefinitions.Domain_Personalities.Certificates import CertificateTypeService
+        from src.ServiceDefinitions.Domain_Personalities.Certificates import CertificateTypeService
         return CertificateTypeService
 
     @property
     def UserCertificateService(self) -> type['_UserCertificateService']:
-        from ServiceDefinitions.Domain_Personalities.Certificates.UserCertificateService import UserCertificateService
+        from src.ServiceDefinitions.Domain_Personalities.Certificates.UserCertificateService import UserCertificateService
         return UserCertificateService
 
 SERVICES = ServiceRegistry()

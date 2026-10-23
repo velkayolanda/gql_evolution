@@ -89,14 +89,9 @@ def json_default(value: typing.Any):
 
 
 def print_json(value: typing.Any) -> None:
-    print(
-        json.dumps(
-            value,
-            ensure_ascii=False,
-            indent=2,
-            default=json_default,
-        )
-    )
+    import sys
+    text = json.dumps(value, ensure_ascii=False, indent=2, default=json_default)
+    sys.stdout.buffer.write((text + "\n").encode("utf-8"))
 
 
 def normalize_name(value: str) -> str:
