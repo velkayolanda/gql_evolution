@@ -149,7 +149,7 @@ services:
   gql_personalities:
     <<: *common-gql
     image: velkayolanda/gql-personalities:latest
-    # TO SWITCH TO DOCKER HUB: remove the 3 lines below (build, context, dockerfile)
+    # SWITCH do DOCKER HUB: vymaz 3 liny dole (build, context, dockerfile)
     build:
       context: .
       dockerfile: Dockerfile
