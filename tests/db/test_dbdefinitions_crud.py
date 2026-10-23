@@ -80,13 +80,15 @@ async def db_session():
       Lokálně pomůže vytvořit tabulky, pokud ještě neexistují.
       V CI lze podle potřeby změnit na False.
     """
-    session_maker = await startEngine(
+    result = await startEngine(
         ComposeConnectionString(),
         makeDrop=False,
         makeUp=True,
     )
 
-    assert session_maker is not None, "Unable to create async session maker"
+    assert result is not None, "Unable to create async session maker"
+
+    session_maker, _ = result
 
     async with session_maker() as session:
         yield session
@@ -136,6 +138,23 @@ def relationship_names(model_cls: type) -> set[str]:
     }
 
 
+def get_unique_column_names(model_cls: type) -> set[str]:
+    unique_cols: set[str] = set()
+    table = inspect(model_cls).persist_selectable
+    col_name_to_prop: dict[str, str] = {}
+    mapper = inspect(model_cls)
+    for prop in mapper.attrs:
+        if isinstance(prop, ColumnProperty):
+            for col in prop.columns:
+                col_name_to_prop[col.name] = prop.key
+    for constraint in table.constraints:
+        if isinstance(constraint, sqlalchemy.UniqueConstraint):
+            for col in constraint.columns:
+                if col.name in col_name_to_prop:
+                    unique_cols.add(col_name_to_prop[col.name])
+    return unique_cols
+
+
 def make_copy_payload(model_cls: type, source: JsonDict) -> JsonDict:
     """
     Vytvoří payload pro create operaci jako kopii existující entity.
@@ -147,6 +166,7 @@ def make_copy_payload(model_cls: type, source: JsonDict) -> JsonDict:
     """
     pk_name = get_primary_key_name(model_cls)
     allowed_columns = column_names(model_cls)
+    unique_cols = get_unique_column_names(model_cls)
 
     payload: JsonDict = {}
 
@@ -160,6 +180,10 @@ def make_copy_payload(model_cls: type, source: JsonDict) -> JsonDict:
         payload[key] = value
 
     payload[pk_name] = uuid.uuid4()
+
+    for col in unique_cols:
+        if col != pk_name and col in payload and isinstance(payload[col], uuid.UUID):
+            payload[col] = uuid.uuid4()
 
     return payload
 

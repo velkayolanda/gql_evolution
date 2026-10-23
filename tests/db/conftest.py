@@ -81,13 +81,15 @@ async def PostgreSQL():
       Lokálně pomůže vytvořit tabulky, pokud ještě neexistují.
       V CI lze podle potřeby změnit na False.
     """
-    session_maker = await startEngine(
+    result = await startEngine(
         ComposeConnectionString(),
         makeDrop=False,
         makeUp=True,
     )
 
-    assert session_maker is not None, "Unable to create async session maker"
+    assert result is not None, "Unable to create async session maker"
+
+    session_maker, _ = result
 
     async with session_maker() as session:
         yield session

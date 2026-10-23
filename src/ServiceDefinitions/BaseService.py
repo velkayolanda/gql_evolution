@@ -127,11 +127,22 @@ class BaseService(typing.Generic[T]):
 
         except Exception as e:
             code = getattr(e, 'code', 'unknown')
+            tb = e.__traceback__
+            filename = None
+            lineno = None
+            if tb is not None:
+                while tb.tb_next:
+                    tb = tb.tb_next
+                filename = tb.tb_frame.f_code.co_filename
+                lineno = tb.tb_lineno
             logger.exception("Unexpected service operation failure (code=%s)", code)
             return await cls.call_callback(
                 Error,
-                msg="Unexpected service error",
+                msg=f"Unexpected service error: {type(e).__name__}: {e} code({code})",
                 code=code,
+                filename=filename,
+                lineno=lineno,
+                exception=e,
             )
 
     @classmethod

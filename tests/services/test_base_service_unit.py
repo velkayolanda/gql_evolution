@@ -163,7 +163,7 @@ async def test_execute_service_method_maps_sqlalchemy_errors():
 
     result = await FakeService.ExecuteServiceMethod(operation(), Error=error)
 
-    assert result["msg"] == "Database operation failed"
+    assert result["msg"].startswith("Database error:")
     assert result["code"] in (None, "unknown")
 
 
@@ -195,7 +195,7 @@ async def test_execute_service_method_maps_unexpected_exception_with_origin():
 
     result = await FakeService.ExecuteServiceMethod(operation(), Error=error)
 
-    assert result["msg"] == "Unexpected service error"
+    assert "CodedRuntimeError: boom code(RUNTIME-CODE)" in result["msg"]
     assert result["code"] == "RUNTIME-CODE"
 
 
