@@ -273,7 +273,7 @@ pytest tests/services/test_servicedefinitions_crud.py -v -s
 - [x] pridat rbac, created by, lastchange
 - [x] pridat kategorie do certifikatu - strom
 - [x] Loadery a Services pro všechny entity
-- [ ] Transakce a rollback
+- [x] Transakce a rollback
 - [x] Unit testy služeb
 - [x] Demodata
 

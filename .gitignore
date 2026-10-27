@@ -29,6 +29,8 @@ htmlcov/
 .env.development.local
 .env.test.local
 .env.production.local
+.idea
+skills/
 *env*.txt
 
 npm-debug.log*

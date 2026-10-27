@@ -5,7 +5,9 @@
   "service": "app",
 
   "workspaceFolder": "/workspaces/project",
-
+  "containerEnv": {
+     "GEMINI_API_KEY": "${localEnv:GEMINI_API_KEY}"
+   },
   "forwardPorts": [
     7932
   ],
