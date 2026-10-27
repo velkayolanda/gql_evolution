@@ -11,7 +11,7 @@ Skupina: ŠR 2026/27 ZS 23-5KB, zadání od Štefka (přeposlal Koláček).
 |---|---|------|
 | **9. 10. 2026** | Vybrané téma, fork nebo příprava, **repository na GitHubu** | [✓]  |
 | **23. 10. 2026** | **1. PD: databázová vrstva** (DB modely, SQLAlchemy 2.x) | [✓]  |
-| **17. 11. 2026** | **2. PD: vrstva služeb** (Services + Loadery) | [ ]  |
+| **23. 11. 2026** | **2. PD: vrstva služeb** (Services + Loadery) | [ ]  |
 | **15. 1. 2027** | **Agentní den**, společná prezentace za celou skupinu | [ ]  |
 | **25. 1. / 26. 1. 2027** | **3. PD: vrstva GQL** (typy, resolvery, mutace) | [ ]  |
 
@@ -269,7 +269,7 @@ pytest tests/services/test_servicedefinitions_crud.py -v -s
 - [x] Připojení databáze, `.env`, docker compose
 - [x] Začít README deníček
 
-**Do 17. 11. (služby)**
+**Do 23. 11. (služby)**
 - [x] pridat rbac, created by, lastchange
 - [x] pridat kategorie do certifikatu - strom
 - [x] Loadery a Services pro všechny entity
