@@ -3,3 +3,5 @@
 omit =
     */__init__.py
     */main.py
+    src/GraphTypeDefinitions/schema copy.py
+    src/AgentDefinitions/*
