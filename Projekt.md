@@ -236,6 +236,32 @@ python -m src.ServiceDefinitions.main UserCertificate create "{\"user_id\": \"uu
 python -m src.ServiceDefinitions.main CertificateType get "{\"id\": \"uuid-zde\"}"
 ```
 
+### PydanticAI agent (spouštět v kontejneru)
+
+**1. Spustit celý stack:**
+```bash
+docker compose up --build
+```
+
+**2. Otevřít shell uvnitř kontejneru `app`:**
+```bash
+docker compose exec app bash
+```
+
+**3. Nainstalovat závislosti projektu (pouze poprvé):**
+```bash
+pip install -r requirements-dev.txt
+```
+
+**4. Spustit agenta:**
+```bash
+python -m src.AgentDefinitions.main
+```
+
+Agent se připojí na `http://gql_personalities:8000/gql` (interní Docker síť) a umí odpovídat na dotazy o PersonalData, Education a Certificates.
+
+---
+
 ### Testy
 
 **Všechny testy:**

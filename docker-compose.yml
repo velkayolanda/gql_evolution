@@ -222,6 +222,26 @@ services:
       retries: 5
     restart: on-failure:3
 
+  # ── PydanticAI agent (devcontainer) ──────────────────────────────────────
+  app:
+    build:
+      context: .devcontainer
+      dockerfile: Dockerfile
+    volumes:
+      - .:/workspaces/project
+    working_dir: /workspaces/project
+    environment:
+      - AI_MODEL=${AI_MODEL}
+      - AI_BASE_URL=${AI_BASE_URL}
+      - AI_API_KEY=${AI_API_KEY}
+      - GQL_ENDPOINT=http://gql_personalities:8000/gql
+    ports:
+      - 7932:7932
+    depends_on:
+      - gql_personalities
+    command: sleep infinity
+    restart: on-failure:3
+
   # ── Valkey (cache) ────────────────────────────────────────────────────────
   valkey:
     image: valkey/valkey:9.0.3-alpine

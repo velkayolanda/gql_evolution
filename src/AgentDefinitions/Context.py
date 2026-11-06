@@ -7,32 +7,34 @@ GraphQLExecutor = Callable[
     Awaitable[Any],
 ]
 
+
 def create_execution_context(schema):
+    """In-process executor — wraps a Strawberry schema for testing without a running server."""
     async def execute_gql(query: str, variables: dict = None):
-        """Execute a GraphQL query against the Strawberry schema.
-
-        This is a convenience function for testing and debugging.  It does not
-        perform any authentication or authorization checks, so it should not be
-        used in production code.
-        """
-
         result = await schema.execute(query, variable_values=variables)
-        return result
+        return {"data": result.data, "errors": result.errors}
+    return execute_gql
+
+
+def create_http_execution_context(endpoint_url: str, authorization_token: str = None) -> GraphQLExecutor:
+    """HTTP executor — sends queries to a running GraphQL server via POST."""
+    async def execute_gql(query: str, variables: dict = None) -> dict:
+        import aiohttp
+        headers = {"Content-Type": "application/json"}
+        if authorization_token:
+            headers["Authorization"] = f"Bearer {authorization_token}"
+        payload: dict = {"query": query}
+        if variables:
+            payload["variables"] = variables
+        async with aiohttp.ClientSession() as session:
+            async with session.post(endpoint_url, json=payload, headers=headers) as response:
+                return await response.json()
     return execute_gql
 
 
 @dataclass
 class AgentContext:
-    """
-    Runtime dependencies available to agent tools.
-
-    Later this context can contain:
-    - GraphQL client
-    - delegated authentication token
-    - effective user information
-    - federation/subgraph endpoint
-    - audit/correlation identifiers
-    """
+    """Runtime dependencies available to agent tools."""
 
     subgraph_name: str = "demo"
     executor: GraphQLExecutor = None
