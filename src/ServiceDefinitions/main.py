@@ -71,15 +71,21 @@ def parse_payload(raw: str | None) -> JsonDict:
     if raw is None:
         return {}
 
-    if raw.startswith("@"):
+    if raw == "-":
+        import sys
+        raw = sys.stdin.read()
+    elif raw.startswith("@"):
         path = raw[1:]
         with open(path, "r", encoding="utf-8") as f:
             result = json.load(f)
-    else:
-        try:
-            result = json.loads(raw)
-        except json.JSONDecodeError as e:
-            raise CliError(f"Invalid JSON payload: {e}") from e
+        if not isinstance(result, dict):
+            raise CliError("Payload must be a JSON object")
+        return result
+
+    try:
+        result = json.loads(raw)
+    except json.JSONDecodeError as e:
+        raise CliError(f"Invalid JSON payload: {e}") from e
 
     if not isinstance(result, dict):
         raise CliError("Payload must be a JSON object")
@@ -228,6 +234,8 @@ def _coerce_column_value(model_cls: type, key: str, value: typing.Any) -> typing
         if not isinstance(prop, ColumnProperty) or prop.key != key:
             continue
         col_type = prop.columns[0].type
+        if isinstance(col_type, sqlalchemy.Uuid) and isinstance(value, str):
+            return uuid.UUID(value)
         if isinstance(col_type, sqlalchemy.Date) and isinstance(value, str):
             return datetime.date.fromisoformat(value)
         if isinstance(col_type, sqlalchemy.DateTime) and isinstance(value, str):
@@ -513,7 +521,8 @@ async def op_get(
     payload: JsonDict,
 ) -> JsonDict:
     model_cls = await get_service_model(ctx, service_cls)
-    primary_key_value = get_primary_key_value(model_cls, payload)
+    primary_key_name = get_primary_key_name(model_cls)
+    primary_key_value = _coerce_column_value(model_cls, primary_key_name, get_primary_key_value(model_cls, payload))
     include = parse_include(payload)
 
     result = await service_cls.ReadById(
