@@ -241,3 +241,64 @@ Projekt připraven pro publikaci na Docker Hub.
 
 - `docker-compose.yml` – přidán `image: velkayolanda/gql-personalities:latest` k `gql_personalities` službě
 - Pro publikaci: `docker build -t velkayolanda/gql-personalities:latest . && docker push velkayolanda/gql-personalities:latest`
+
+---
+
+### 2026-10-27 – Dokumentace transakcí + aktualizace harmonogramu (commits ea6bcb1, 85f4a33)
+
+Přidána dokumentace transakcí a rollbacků, aktualizován harmonogram projektu.
+
+**Co bylo přidáno/opraveno:**
+- `TRANSACTIONS_AND_ROLLBACK.md` – nový soubor s průvodcem transakcemi a rollbacky v SQLAlchemy kontextu projektu
+- `Projekt.md` – vrstva Services označena jako hotová, aktualizován deadline
+- `.devcontainer/devcontainer.json` – přidána konfigurace `GEMINI_API_KEY` env proměnné
+- `.gitignore` – přidáno vyloučení `.idea` a `skills` adresářů
+
+---
+
+### 2026-11-05 – Oprava konfigurace pokrytí testů (commit 65d6007)
+
+Upravena konfigurace `.coveragerc` tak, aby coverage přeskakoval schémata a agent definice.
+
+**Co bylo změněno:**
+- `.coveragerc` – přidány výjimky pro schema soubory a `AgentDefinitions`
+
+---
+
+### 2026-11-06 – GQLToolset pro agenty (commit 001a697)
+
+Přidán `GQLToolset` pro správu PersonalData, Education a Certificates přes agentní vrstvu.
+
+**Co bylo přidáno:**
+- `src/AgentDefinitions/Toolsets/GQLToolset.py` – nový toolset s 236 řádky; zapouzdřuje GQL operace (insert / update / delete / query) pro všechny tři domény PersonalData, Education a Certificates
+- `src/AgentDefinitions/Toolsets/__init__.py` – export nového toolsetu
+- `src/AgentDefinitions/Context.py` – přepracován kontext agenta
+- `src/AgentDefinitions/main.py` – aktualizován main execution context
+- `docker-compose.yml` – doplněna konfigurace prostředí pro agenty
+
+---
+
+### 2026-11-10 – Vypnutí nefunkčních rozšíření (commit 6c02728)
+
+Deaktivovány rozšíření (extensions), která nefungovala správně v aktuálním prostředí.
+
+---
+
+### 2026-11-20 – Vylepšení zpracování JSON payloadu a UUID koerce (commit 9a71dad)
+
+Opravena vrstva CLI v `ServiceDefinitions` pro robustnější zpracování vstupních dat.
+
+**Co bylo změněno:**
+- `src/ServiceDefinitions/main.py` – vylepšena koerce UUID (automatická konverze string → UUID při sestavení instance), opraveno zpracování JSON payloadu při chybějících nebo neplatných hodnotách
+
+---
+
+### 2026-11-22 – Refaktoring Certificate GQL modelu + GQL testy (commit 0d57ad7)
+
+Přepracován `CertificateGQLModel` a přidány GQL testy pro všechny tři domény.
+
+**Co bylo přidáno/změněno:**
+- `src/GraphTypeDefinitions/Domain_Personalities/Certificates/CertificateGQLModel.py` – refaktoring vstupních typů a resolveru; zmenšen z původního rozsahu o cca 40 řádků
+- `tests/graphql/test_CertificateGQLModel.py` – nové GQL testy pro certifikáty (80 řádků)
+- `tests/graphql/test_EducationGQLModel.py` – nové GQL testy pro vzdělání (60 řádků)
+- `tests/graphql/test_PersonalDataGQLModel.py` – nové GQL testy pro osobní data (60 řádků)

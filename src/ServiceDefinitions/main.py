@@ -76,7 +76,7 @@ def parse_payload(raw: str | None) -> JsonDict:
         raw = sys.stdin.read()
     elif raw.startswith("@"):
         path = raw[1:]
-        with open(path, "r", encoding="utf-8") as f:
+        with open(path, "r", encoding="utf-8-sig") as f:
             result = json.load(f)
         if not isinstance(result, dict):
             raise CliError("Payload must be a JSON object")
